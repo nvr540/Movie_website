@@ -1,0 +1,7 @@
+{% extends 'layout.html' %}
+{% block body %}
+<body>
+  {% set fname = 'assets/img/' + movie.img_name%}  
+  <img src={{url_for('static',filename=fname)}} >
+</body>
+{% endblock %}

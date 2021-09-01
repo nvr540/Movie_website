@@ -1,5 +1,5 @@
 {
     "params":{ 
-        "data_base_uri":"mysql://username:password@localhost/movie website"
+        "data_base_uri":"mysql://root@localhost/movie website"
      }
  }

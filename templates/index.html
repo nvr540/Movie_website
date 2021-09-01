@@ -1,17 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{url_for('static',filename='css/lightslider.css')}}">
-    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}} ">
-    <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='assets/favicon.ico')}}" />
-    <script src="https://kit.fontawesome.com/c8e4d183c2.js" crossorigin="anonymous"></script> 
-    <script src="{{url_for('static',filename='js/JQuery3.3.1.js')}}"></script>
-<script src="{{url_for('static',filename='js/lightslider.js')}}"></script>        
-    <title>Movie Website</title>
-</head>
+{% extends 'layout.html' %}
+{% block body %}
 <body>
     <!--navigation-------------->
 <nav>
@@ -51,10 +39,6 @@
         <!--showcase-box------------------->
        <div class="showcase-box">
            <img src="{{url_for('static',filename='assets/img/s-1.jpg')}}"/>
-           \<p>Hackine adjflajflasdjflasdjf;ag
-               afsjflasjdfa
-               fadslfja'
-           </p>
        </div>
            </li>
         <!--box-2--------------------------->
@@ -94,103 +78,25 @@
     <!--slider------------------->
     <ul id="autoWidth2" class="cs-hidden">
         <!--slide-box-1------------------>
+{% for movie in movies %}
         <li class="item-a">
             <div class="latest-box">
                 <!--img-------->
-                <div class="latest-b-img">
-                    <img src="{{url_for('static',filename='assets/img/m-1.jpg')}}">
+                {%set fname = 'assets/img/' + movie.img_name %}
+               <a href="{{movie.slug}}"> <div class="latest-b-img">
+                <img src="{{url_for('static',filename=fname)}}">
                 </div>
+
                 <!--text---------->
                 <div class="latest-b-text">
-                    <strong>Kin 2018</strong>
-                    <p>Action Movie</p>
+                    <strong>{{movie.name}}</strong>
+                    <p>{{movie.description[0:15]}}</p>
                 </div>
+            </a>
             </div>
         </li>
-<!--slide-box-2------------------>
-<li class="item-b">
-    <div class="latest-box">
-        <!--img-------->
-        <div class="latest-b-img">
-            <img src="{{url_for('static',filename='assets/img/m-2.jpg')}}">
-        </div>
-        <!--text---------->
-        <div class="latest-b-text">
-            <strong>Kin 2018</strong>
-            <p>Action Movie</p>
-        </div>
-    </div>
-</li>
-<!--slide-box-3------------------>
-<li class="item-c">
-    <div class="latest-box">
-        <!--img-------->
-        <div class="latest-b-img">
-            <img src="{{url_for('static',filename='assets/img/m-3.jpg')}}">
-        </div>
-        <!--text---------->
-        <div class="latest-b-text">
-            <strong>Kin 2018</strong>
-            <p>Action Movie</p>
-        </div>
-    </div>
-</li>
-<!--slide-box-4------------------>
-<li class="item-d">
-    <div class="latest-box">
-        <!--img-------->
-        <div class="latest-b-img">
-            <img src="{{url_for('static',filename='assets/img/m-4.jpg')}}">
-        </div>
-        <!--text---------->
-        <div class="latest-b-text">
-            <strong>Kin 2018</strong>
-            <p>Action Movie</p>
-        </div>
-    </div>
-</li>
-<!--slide-box-5------------------>
-<li class="item-e">
-    <div class="latest-box">
-        <!--img-------->
-        <div class="latest-b-img">
-            <img src="{{url_for('static',filename='assets/img/m-5.jpg')}}">
-        </div>
-        <!--text---------->
-        <div class="latest-b-text">
-            <strong>Kin 2018</strong>
-            <p>Action Movie</p>
-        </div>
-    </div>
-</li>
-<!--slide-box-6------------------>
-<li class="item-f">
-    <div class="latest-box">
-        <!--img-------->
-        <div class="latest-b-img">
-            <img src="{{url_for('static',filename='assets/img/m-6.jpg')}}">
-        </div>
-        <!--text---------->
-        <div class="latest-b-text">
-            <strong>Kin 2018</strong>
-            <p>Action Movie</p>
-        </div>
-    </div>
-</li>
-<!--slide-box-7------------------>
-<li class="item-g">
-    <div class="latest-box">
-        <!--img-------->
-        <div class="latest-b-img">
-            <img src="{{url_for('static',filename='assets/img/m-7.jpeg')}}">
-        </div>
-        <!--text---------->
-        <div class="latest-b-text">
-            <strong>Kin 2018</strong>
-            <p>Action Movie</p>
-        </div>
-    </div>
-</li>
+  {% endfor %}
+<!--  -->
       </ul>
 </section>
 <!--movies---------------------------->
@@ -314,10 +220,4 @@
 </script>
 
 </body>
-<!--footer------------------>
-<footer>
-    <p>Going To Internet, Ltd Consumer Website</p>
-    <p>Copyright 2020 - GoingToInternet</p>
-</footer>
-
-</html>
+{% endblock %}
