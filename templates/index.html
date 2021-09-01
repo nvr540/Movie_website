@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/lightslider.css">
-    <link rel="stylesheet" href="../static/css/style.css ">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/lightslider.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}} ">
+    <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='assets/favicon.ico')}}" />
     <script src="https://kit.fontawesome.com/c8e4d183c2.js" crossorigin="anonymous"></script> 
-    <script src="../static/js/JQuery3.3.1.js"></script>
-<script src="../static/js/lightslider.js"></script>        
+    <script src="{{url_for('static',filename='js/JQuery3.3.1.js')}}"></script>
+<script src="{{url_for('static',filename='js/lightslider.js')}}"></script>        
     <title>Movie Website</title>
 </head>
 <body>
@@ -16,7 +17,7 @@
 <nav>
     <!--logo--------------->
     <a href="#" class="logo">
-        <img src="../static/assets/img/logo.png"/>
+        <img src="{{url_for('static',filename='assets/img/logo.png')}}"/>
     </a>
     <!--menu--btn----------------->
     <input type="checkbox" class="menu-btn" id="menu-btn"/>
@@ -49,35 +50,39 @@
     <li class="item-a">
         <!--showcase-box------------------->
        <div class="showcase-box">
-           <img src="../static/assets/img/s-1.jpg"/>
+           <img src="{{url_for('static',filename='assets/img/s-1.jpg')}}"/>
+           \<p>Hackine adjflajflasdjflasdjf;ag
+               afsjflasjdfa
+               fadslfja'
+           </p>
        </div>
            </li>
         <!--box-2--------------------------->
         <li class="item-b">
             <!--showcase-box------------------->
            <div class="showcase-box">
-               <img src="../static/assets/img/s-2.jpg"/>
+               <img src="{{url_for('static',filename='assets/img/s-2.jpg')}}"/>
            </div>
                </li>
             <!--box-3--------------------------->
         <li class="item-c">
             <!--showcase-box------------------->
            <div class="showcase-box">
-               <img src="../static/assets/img/s-3.jpg"/>
+               <img src="{{url_for('static',filename='assets/img/s-3.jpg')}}"/>
            </div>
                </li>
             <!--box-4--------------------------->
         <li class="item-d">
             <!--showcase-box------------------->
            <div class="showcase-box">
-               <img src="../static/assets/img/s-4.jpg"/>
+               <img src="{{url_for('static',filename='assets/img/s-4.jpg')}}"/>
            </div>
                </li>
                <!--box-5--------------------------->
         <li class="item-e">
             <!--showcase-box------------------->
            <div class="showcase-box">
-               <img src="../static/assets/img/s-5.png"/>
+               <img src="{{url_for('static',filename='assets/img/s-5.png')}}"/>
            </div>
                </li>
       </ul>
@@ -93,7 +98,7 @@
             <div class="latest-box">
                 <!--img-------->
                 <div class="latest-b-img">
-                    <img src="../static/assets/img/m-1.jpg">
+                    <img src="{{url_for('static',filename='assets/img/m-1.jpg')}}">
                 </div>
                 <!--text---------->
                 <div class="latest-b-text">
@@ -107,7 +112,7 @@
     <div class="latest-box">
         <!--img-------->
         <div class="latest-b-img">
-            <img src="../static/assets/img/m-2.jpg">
+            <img src="{{url_for('static',filename='assets/img/m-2.jpg')}}">
         </div>
         <!--text---------->
         <div class="latest-b-text">
@@ -121,7 +126,7 @@
     <div class="latest-box">
         <!--img-------->
         <div class="latest-b-img">
-            <img src="../static/assets/img/m-3.jpg">
+            <img src="{{url_for('static',filename='assets/img/m-3.jpg')}}">
         </div>
         <!--text---------->
         <div class="latest-b-text">
@@ -135,7 +140,7 @@
     <div class="latest-box">
         <!--img-------->
         <div class="latest-b-img">
-            <img src="../static/assets/img/m-4.jpg">
+            <img src="{{url_for('static',filename='assets/img/m-4.jpg')}}">
         </div>
         <!--text---------->
         <div class="latest-b-text">
@@ -149,7 +154,7 @@
     <div class="latest-box">
         <!--img-------->
         <div class="latest-b-img">
-            <img src="../static/assets/img/m-5.jpg">
+            <img src="{{url_for('static',filename='assets/img/m-5.jpg')}}">
         </div>
         <!--text---------->
         <div class="latest-b-text">
@@ -163,7 +168,7 @@
     <div class="latest-box">
         <!--img-------->
         <div class="latest-b-img">
-            <img src="../static/assets/img/m-6.jpg">
+            <img src="{{url_for('static',filename='assets/img/m-6.jpg')}}">
         </div>
         <!--text---------->
         <div class="latest-b-text">
@@ -177,7 +182,7 @@
     <div class="latest-box">
         <!--img-------->
         <div class="latest-b-img">
-            <img src="../static/assets/img/m-7.jpeg">
+            <img src="{{url_for('static',filename='assets/img/m-7.jpeg')}}">
         </div>
         <!--text---------->
         <div class="latest-b-text">
@@ -198,7 +203,7 @@
         <!--img------------>
         <div class="movies-img">
             <div class="quality">HDRip</div>
-            <img src="../static/assets/img/l-1.jpg">
+            <img src="{{url_for('static',filename='assets/img/l-1.jpg')}}">
         </div>
         <!--text--------->
         <a href="#">
@@ -210,7 +215,7 @@
         <!--img------------>
         <div class="movies-img">
             <div class="quality">HDRip</div>
-            <img src="../static/assets/img/l-2.jpg">
+            <img src="{{url_for('static',filename='assets/img/l-2.jpg')}}">
         </div>
         <!--text--------->
         <a href="#">
@@ -222,7 +227,7 @@
         <!--img------------>
         <div class="movies-img">
             <div class="quality">HDRip</div>
-            <img src="../static/assets/img/l-3.jpg">
+            <img src="{{url_for('static',filename='assets/img/l-3.jpg')}}">
         </div>
         <!--text--------->
         <a href="#">
@@ -234,7 +239,7 @@
         <!--img------------>
         <div class="movies-img">
             <div class="quality">HDRip</div>
-            <img src="../static/assets/img/l-4.jpg">
+            <img src="{{url_for('static',filename='assets/img/l-4.jpg')}}">
         </div>
         <!--text--------->
         <a href="#">
@@ -246,7 +251,7 @@
         <!--img------------>
         <div class="movies-img">
             <div class="quality">HDRip</div>
-            <img src="../static/assets/img/l-5.jpg">
+            <img src="{{url_for('static',filename='assets/img/l-5.jpg')}}">
         </div>
         <!--text--------->
         <a href="#">
@@ -258,7 +263,7 @@
         <!--img------------>
         <div class="movies-img">
             <div class="quality">HDRip</div>
-            <img src="../static/assets/img/l-6.jpg">
+            <img src="{{url_for('static',filename='assets/img/l-6.jpg')}}">
         </div>
         <!--text--------->
         <a href="#">
@@ -270,7 +275,7 @@
         <!--img------------>
         <div class="movies-img">
             <div class="quality">HDRip</div>
-            <img src="../static/assets/img/l-7.jpg">
+            <img src="{{url_for('static',filename='assets/img/l-7.jpg')}}">
         </div>
         <!--text--------->
         <a href="#">
@@ -282,7 +287,7 @@
         <!--img------------>
         <div class="movies-img">
             <div class="quality">HDRip</div>
-            <img src="../static/assets/img/l-8.jpg">
+            <img src="{{url_for('static',filename='assets/img/l-8.jpg')}}">
         </div>
         <!--text--------->
         <a href="#">
