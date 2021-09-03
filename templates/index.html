@@ -1,223 +1,155 @@
 {% extends 'layout.html' %}
 {% block body %}
-<body>
+
     <!--navigation-------------->
-<nav>
-    <!--logo--------------->
-    <a href="#" class="logo">
-        <img src="{{url_for('static',filename='assets/img/logo.png')}}"/>
-    </a>
-    <!--menu--btn----------------->
-    <input type="checkbox" class="menu-btn" id="menu-btn"/>
-    <label class="menu-icon" for="menu-btn">
-        <span class="nav-icon"></span>
-    </label>
-    <!--menu-------------->
-    <ul class="menu">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Movies</a></li>
-        <li><a href="#">TV Shows</a></li>
-        <li><a href="#">Hollywood</a></li>
-        <li><a href="#">Horror</a></li>
-    </ul>
-    <!--search------------->
-    <div class="search">
-        <input type="text" placeholder="Find Your Favourtie Movies"/>
-        <!--search-icon----------->
-        <i class="fas fa-search"></i>
-    </div>
-</nav>
-<section id="main">
-    <!--showcase----------------------->
-    <!--heading------------->
-    <h1 class="showcase-heading">Showcase</h1>
-    
-    <ul id="autoWidth" class="cs-hidden">
-    
-    <!--box-1--------------------------->
-    <li class="item-a">
-        <!--showcase-box------------------->
-       <div class="showcase-box">
-           <img src="{{url_for('static',filename='assets/img/s-1.jpg')}}"/>
-       </div>
-           </li>
-        <!--box-2--------------------------->
-        <li class="item-b">
-            <!--showcase-box------------------->
-           <div class="showcase-box">
-               <img src="{{url_for('static',filename='assets/img/s-2.jpg')}}"/>
-           </div>
-               </li>
-            <!--box-3--------------------------->
-        <li class="item-c">
-            <!--showcase-box------------------->
-           <div class="showcase-box">
-               <img src="{{url_for('static',filename='assets/img/s-3.jpg')}}"/>
-           </div>
-               </li>
-            <!--box-4--------------------------->
-        <li class="item-d">
-            <!--showcase-box------------------->
-           <div class="showcase-box">
-               <img src="{{url_for('static',filename='assets/img/s-4.jpg')}}"/>
-           </div>
-               </li>
-               <!--box-5--------------------------->
-        <li class="item-e">
-            <!--showcase-box------------------->
-           <div class="showcase-box">
-               <img src="{{url_for('static',filename='assets/img/s-5.png')}}"/>
-           </div>
-               </li>
-      </ul>
-    
-</section>
-<!--latest-movies---------------------->
-<section id="latest">
-    <h2 class="latest-heading">Latest Movies</h2>
-    <!--slider------------------->
-    <ul id="autoWidth2" class="cs-hidden">
-        <!--slide-box-1------------------>
-{% for movie in movies %}
-        <li class="item-a">
-            <div class="latest-box">
-                <!--img-------->
-                {%set fname = 'assets/img/' + movie.img_name %}
-               <a href="{{movie.slug}}"> <div class="latest-b-img">
-                <img src="{{url_for('static',filename=fname)}}">
+  
+    <section id="main">
+        <!--showcase----------------------->
+        <!--heading------------->
+        <h1 class="showcase-heading">Showcase</h1>
+
+        <ul id="autoWidth" class="cs-hidden">
+
+            <!--box-1--------------------------->
+            {%for latest in latest%}
+            <li class="item-a">
+                <!--showcase-box------------------->
+                <a href="/{{latest.slug}}">
+       <div class=" showcase-box">
+                    {%set fname = 'assets/img/' + latest.img_name%}
+                    <img src="{{url_for('static',filename=fname)}}" />
+                    </div>
+                </a>
+            </li>
+            {%endfor%}
+            <!--box-2--------------------------->
+        </ul>
+
+    </section>
+    <!--latest-movies---------------------->
+    <section id="latest">
+        <h2 class="latest-heading">Action</h2>
+        <!--slider------------------->
+        <ul id="autoWidth2" class="cs-hidden">
+            <!--slide-box-1------------------>
+            {% for action in action %}
+            <li class="item-a">
+                <div class="latest-box">
+                    <!--img-------->
+                    {%set fname = 'assets/img/' + action.img_name %}
+                    <a href="{{action.slug}}">
+                        <div class="latest-b-img">
+                            <img src="{{url_for('static',filename=fname)}}">
+                        </div>
+
+                        <!--text---------->
+                        <div class="latest-b-text">
+                            <strong>{{action.name}}</strong>
+                            <p>{{action.description[0:15]+"..."}}</p>
+                        </div>
+                    </a>
                 </div>
+            </li>
+            {% endfor %}
+            <!--  -->
+        </ul>
+    </section>
+    <section id="latest">
+        <h2 class="latest-heading">Romance</h2>
+        <!--slider------------------->
+        <ul id="autoWidth2" class="cs-hidden">
+            <!--slide-box-1------------------>
+            {% for romance in romance %}
+            <li class="item-a">
+                <div class="latest-box">
+                    <!--img-------->
+                    {%set fname = 'assets/img/' + romance.img_name %}
+                    <a href="{{romance.slug}}">
+                        <div class="latest-b-img">
+                            <img src="{{url_for('static',filename=fname)}}">
+                        </div>
 
-                <!--text---------->
-                <div class="latest-b-text">
-                    <strong>{{movie.name}}</strong>
-                    <p>{{movie.description[0:15]}}</p>
+                        <!--text---------->
+                        <div class="latest-b-text">
+                            <strong>{{romance.name}}</strong>
+                            <p>{{romance.description[0:15]+"..."}}</p>
+                        </div>
+                    </a>
                 </div>
-            </a>
-            </div>
-        </li>
-  {% endfor %}
-<!--  -->
-      </ul>
-</section>
-<!--movies---------------------------->
-<div class="movies-heading">
-    <h2>Movies</h2>
-</div>
-<section id="movies-list">
-    <!--box-1------------------------>
-    <div class="movies-box">
-        <!--img------------>
-        <div class="movies-img">
-            <div class="quality">HDRip</div>
-            <img src="{{url_for('static',filename='assets/img/l-1.jpg')}}">
-        </div>
-        <!--text--------->
-        <a href="#">
-            Tin (2018) Full Movie[In English] With English Subtitles | HDRip 1080p HD
-        </a>
-    </div>
-     <!--box-2------------------------>
-     <div class="movies-box">
-        <!--img------------>
-        <div class="movies-img">
-            <div class="quality">HDRip</div>
-            <img src="{{url_for('static',filename='assets/img/l-2.jpg')}}">
-        </div>
-        <!--text--------->
-        <a href="#">
-            Tin (2018) Full Movie[In English] With English Subtitles | HDRip 1080p HD
-        </a>
-    </div>
-     <!--box-3------------------------>
-     <div class="movies-box">
-        <!--img------------>
-        <div class="movies-img">
-            <div class="quality">HDRip</div>
-            <img src="{{url_for('static',filename='assets/img/l-3.jpg')}}">
-        </div>
-        <!--text--------->
-        <a href="#">
-            Tin (2018) Full Movie[In English] With English Subtitles | HDRip 1080p HD
-        </a>
-    </div>
-     <!--box-4------------------------>
-     <div class="movies-box">
-        <!--img------------>
-        <div class="movies-img">
-            <div class="quality">HDRip</div>
-            <img src="{{url_for('static',filename='assets/img/l-4.jpg')}}">
-        </div>
-        <!--text--------->
-        <a href="#">
-            Tin (2018) Full Movie[In English] With English Subtitles | HDRip 1080p HD
-        </a>
-    </div>
-     <!--box-5------------------------>
-     <div class="movies-box">
-        <!--img------------>
-        <div class="movies-img">
-            <div class="quality">HDRip</div>
-            <img src="{{url_for('static',filename='assets/img/l-5.jpg')}}">
-        </div>
-        <!--text--------->
-        <a href="#">
-            Tin (2018) Full Movie[In English] With English Subtitles | HDRip 1080p HD
-        </a>
-    </div>
-     <!--box-6------------------------>
-     <div class="movies-box">
-        <!--img------------>
-        <div class="movies-img">
-            <div class="quality">HDRip</div>
-            <img src="{{url_for('static',filename='assets/img/l-6.jpg')}}">
-        </div>
-        <!--text--------->
-        <a href="#">
-            Tin (2018) Full Movie[In English] With English Subtitles | HDRip 1080p HD
-        </a>
-    </div>
-     <!--box-7------------------------>
-     <div class="movies-box">
-        <!--img------------>
-        <div class="movies-img">
-            <div class="quality">HDRip</div>
-            <img src="{{url_for('static',filename='assets/img/l-7.jpg')}}">
-        </div>
-        <!--text--------->
-        <a href="#">
-            Tin (2018) Full Movie[In English] With English Subtitles | HDRip 1080p HD
-        </a>
-    </div>
-     <!--box-8------------------------>
-     <div class="movies-box">
-        <!--img------------>
-        <div class="movies-img">
-            <div class="quality">HDRip</div>
-            <img src="{{url_for('static',filename='assets/img/l-8.jpg')}}">
-        </div>
-        <!--text--------->
-        <a href="#">
-            Tin (2018) Full Movie[In English] With English Subtitles | HDRip 1080p HD
-        </a>
-    </div>
-</section>
-<!--btns--------------->
-<div class="btns">
-    <a href="#">Previous</a>
-    <a href="#">Next</a>
-</div>
+            </li>
+            {% endfor %}
+            <!--  -->
+        </ul>
+    </section>
+    <section id="latest">
+        <h2 class="latest-heading">Horror</h2>
+        <!--slider------------------->
+        <ul id="autoWidth2" class="cs-hidden">
+            <!--slide-box-1------------------>
+            {% for horror in horror %}
+            <li class="item-a">
+                <div class="latest-box">
+                    <!--img-------->
+                    {%set fname = 'assets/img/' + horror.img_name %}
+                    <a href="{{horror.slug}}">
+                        <div class="latest-b-img">
+                            <img src="{{url_for('static',filename=fname)}}">
+                        </div>
 
-<script>
-        $(document).ready(function() {
-    $('#autoWidth,#autoWidth2').lightSlider({
-        autoWidth:true,
-        loop:true,
-        onSliderLoad: function() {
-            $('#autoWidth,#autoWidth2').removeClass('cS-hidden');
-        } 
-    });  
-  });
-</script>
+                        <!--text---------->
+                        <div class="latest-b-text">
+                            <strong>{{horror.name}}</strong>
+                            <p>{{horror.description[0:15]+"..."}}</p>
+                        </div>
+                    </a>
+                </div>
+            </li>
+            {% endfor %}
+            <!--  -->
+        </ul>
+    </section>
+    <section id="latest">
+        <h2 class="latest-heading">Comedy</h2>
+        <!--slider------------------->
+        <ul id="autoWidth2" class="cs-hidden">
+            <!--slide-box-1------------------>
+            {% for comedy in comedy %}
+            <li class="item-a">
+                <div class="latest-box">
+                    <!--img-------->
+                    {%set fname = 'assets/img/' + comedy.img_name %}
+                    <a href="{{comedy.slug}}">
+                        <div class="latest-b-img">
+                            <img src="{{url_for('static',filename=fname)}}">
+                        </div>
 
-</body>
+                        <!--text---------->
+                        <div class="latest-b-text">
+                            <strong>{{comedy.name}}</strong>
+                            <p>{{ comedy.description[0:15]+"..."}}</p>
+                        </div>
+                    </a>
+                </div>
+            </li>
+            {% endfor %}
+            <!--  -->
+        </ul>
+    </section>
+        <!--btns--------------->
+    <div class="btns">
+        <a href="#">Previous</a>
+        <a href="#">Next</a>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#autoWidth,#autoWidth2').lightSlider({
+                autoWidth: true,
+                loop: true,
+                onSliderLoad: function () {
+                    $('#autoWidth,#autoWidth2').removeClass('cS-hidden');
+                }
+            });
+        });
+    </script>
 {% endblock %}

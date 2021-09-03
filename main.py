@@ -18,10 +18,19 @@ class Movies(db.Model):
 @app.route("/")
 def home():
     movies = Movies.query.all()
-    return render_template("index.html", movies=movies)
+    latest = Movies.query.order_by(Movies.date.desc()).limit(7).all()
+    comedy = Movies.query.filter_by(genre='comedy').order_by(Movies.date.desc()).all()
+    horror = Movies.query.filter_by(genre='horror').order_by(Movies.date.desc()).all()
+    action = Movies.query.filter_by(genre='action').order_by(Movies.date.desc()).all()
+    romance = Movies.query.filter_by(genre='romance').order_by(Movies.date.desc()).all()
+    return render_template("index.html", movies=movies,latest=latest, comedy=comedy,horror=horror, action=action,romance=romance)
 @app.route("/<string:slug>")
 def movie_download(slug):
     movie = Movies.query.filter_by(slug=slug).first()
     return render_template("test.html", movie=movie)
-
+@app.route("/movies")
+def movies_vertical():
+    # movies = Movies.query.all()
+    # latest = Movies.query.order_by(Movies.date.desc()).limit(7).all()
+    return render_template("movies_vertical.html")
 app.run(debug=True)
