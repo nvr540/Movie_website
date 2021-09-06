@@ -176,12 +176,12 @@ sup {
 	top: -.5em
 }
 
-a {
+/* a {
 	color: #007bff;
 	text-decoration: none;
-	background-color: transparent;
+	background-color: white;
 	-webkit-text-decoration-skip: objects
-}
+} */
 
 a:hover {
 	color: #0056b3;
@@ -3472,7 +3472,7 @@ tbody.collapse.show {
 	padding: .25rem 1.5rem;
 	clear: both;
 	font-weight: 400;
-	color: #212529;
+	color: #585858;
 	text-align: inherit;
 	white-space: nowrap;
 	background-color: transparent;
@@ -4159,7 +4159,12 @@ tbody.collapse.show {
 	-webkit-box-pack: justify;
 	-ms-flex-pack: justify;
 	justify-content: space-between;
-	padding: .5rem 1rem
+	padding: .5rem 1rem;
+	font-size: 0.8;
+	text-transform: uppercase;
+	font-weight: 500;
+	letter-spacing: 1px;
+	
 }
 
 .navbar>.container,
@@ -4570,7 +4575,7 @@ tbody.collapse.show {
 .navbar-light .navbar-nav .nav-link.active,
 .navbar-light .navbar-nav .nav-link.show,
 .navbar-light .navbar-nav .show>.nav-link {
-	color: rgba(0, 0, 0, .9)
+	color: #585858
 }
 
 .navbar-light .navbar-toggler {
@@ -9268,6 +9273,7 @@ a.text-dark:hover {
 	.table-bordered th {
 		border: 1px solid #ddd!important
 	}
+	
 }
 
 

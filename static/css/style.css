@@ -25,6 +25,9 @@ nav{
     top: 0;
     z-index: 100;
 }
+#form-color{
+    background-color: #ffffff;
+}
 .logo img{
     height: 35px;
 }
@@ -47,11 +50,15 @@ nav .menu li a{
     width:250px;
     height: 40px;
     background-color: rgba(245,245,245,0.8);
+    /* background-color: wh; */
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 2px solid #3a3a3a;
+    border-width:thin ;
     border-radius: 20px;
     padding: 0px 20px;
+    font-size: 1rem;
 }
 .search input{
     width:100%;
@@ -61,7 +68,7 @@ nav .menu li a{
     background-color: transparent;
 }
 .search i{
-    color:#3a3a3a;
+    color: #585858
 }
 nav .menu li a:hover{
     background-color: #242424;
