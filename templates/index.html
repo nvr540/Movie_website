@@ -14,7 +14,7 @@
             {%for latest in latest%}
             <li class="item-a">
                 <!--showcase-box------------------->
-                <a href="/{{latest.slug}}">
+                <a href="/movies/{{latest.slug}}">
        <div class=" showcase-box">
                     {%set fname = 'assets/img/' + latest.img_name%}
                     <img src="{{url_for('static',filename=fname)}}" />
@@ -28,7 +28,7 @@
     </section>
     <!--latest-movies---------------------->
     <section id="latest">
-        <h2 class="latest-heading">Action</h2>
+        <h2 class="latest-heading">{{first_row}}</h2>
         <!--slider------------------->
         <ul id="autoWidth2" class="cs-hidden">
             <!--slide-box-1------------------>
@@ -37,9 +37,9 @@
                 <div class="latest-box">
                     <!--img-------->
                     {%set fname = 'assets/img/' + action.img_name %}
-                    <a href="{{action.slug}}">
+                    <a href="/movies/{{action.slug}}">
                         <div class="latest-b-img">
-                            <img src="{{url_for('static',filename=fname)}}">
+                            <img src="{{url_for('static',filename=fname)}}" alt="{{action.name}}">
                         </div>
 
                         <!--text---------->
@@ -55,7 +55,7 @@
         </ul>
     </section>
     <section id="latest">
-        <h2 class="latest-heading">Romance</h2>
+        <h2 class="latest-heading">{{second_row}}</h2>
         <!--slider------------------->
         <ul id="autoWidth2" class="cs-hidden">
             <!--slide-box-1------------------>
@@ -64,9 +64,9 @@
                 <div class="latest-box">
                     <!--img-------->
                     {%set fname = 'assets/img/' + romance.img_name %}
-                    <a href="{{romance.slug}}">
+                    <a href="/movies/{{romance.slug}}">
                         <div class="latest-b-img">
-                            <img src="{{url_for('static',filename=fname)}}">
+                            <img src="{{url_for('static',filename=fname)}}"" alt="{{romance.name}}">
                         </div>
 
                         <!--text---------->
@@ -82,7 +82,7 @@
         </ul>
     </section>
     <section id="latest">
-        <h2 class="latest-heading">Horror</h2>
+        <h2 class="latest-heading">{{third_row}}</h2>
         <!--slider------------------->
         <ul id="autoWidth2" class="cs-hidden">
             <!--slide-box-1------------------>
@@ -91,9 +91,9 @@
                 <div class="latest-box">
                     <!--img-------->
                     {%set fname = 'assets/img/' + horror.img_name %}
-                    <a href="{{horror.slug}}">
+                    <a href="/movies/{{horror.slug}}">
                         <div class="latest-b-img">
-                            <img src="{{url_for('static',filename=fname)}}">
+                            <img src="{{url_for('static',filename=fname)}}" alt="{{horror.name}}">
                         </div>
 
                         <!--text---------->
@@ -109,7 +109,7 @@
         </ul>
     </section>
     <section id="latest">
-        <h2 class="latest-heading">Comedy</h2>
+        <h2 class="latest-heading">{{fourth_row}}</h2>
         <!--slider------------------->
         <ul id="autoWidth2" class="cs-hidden">
             <!--slide-box-1------------------>
@@ -118,9 +118,9 @@
                 <div class="latest-box">
                     <!--img-------->
                     {%set fname = 'assets/img/' + comedy.img_name %}
-                    <a href="{{comedy.slug}}">
+                    <a href="/movies/{{comedy.slug}}">
                         <div class="latest-b-img">
-                            <img src="{{url_for('static',filename=fname)}}">
+                            <img src="{{url_for('static',filename=fname)}}" alt="{{comedy.name}}">
                         </div>
 
                         <!--text---------->
