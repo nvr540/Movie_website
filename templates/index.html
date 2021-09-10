@@ -136,11 +136,10 @@
         </ul>
     </section>
         <!--btns--------------->
-    <div class="btns">
-        <a href="#">Previous</a>
-        <a href="#">Next</a>
-    </div>
-
+        <div class="bottom d-flex justify-content-between mb-4">
+            <a style="{{display_priv}}" class="previous-btn btn btn-primary text-uppercase" href="?page={{priv}}">&larr; Previous</a>
+            <a style="{{display_next}}"class="next-btn btn-primary text-uppercase" href="?page={{next}}">Next →</a>
+        </div>
     <script>
         $(document).ready(function () {
             $('#autoWidth,#autoWidth2').lightSlider({

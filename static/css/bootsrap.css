@@ -35,12 +35,12 @@
 	--font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 	--font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
 }
-
+/* 
 *,
 ::after,
 ::before {
 	box-sizing: border-box
-}
+} */
 /* 
 html {
 	font-family: sans-serif;
@@ -9281,6 +9281,177 @@ a.text-dark:hover {
 	}
 	
 }
-
-
+header.masthead {
+	position: relative;
+	margin-bottom: 3rem;
+	padding-top: calc(8rem + 57px);
+	padding-bottom: 8rem;
+	background: no-repeat center center;
+	background-color: #6c757d;
+	background-size: cover;
+	background-attachment: scroll;
+  }
+  header.masthead:before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #212529;
+	opacity: 0.5;
+  }
+  header.masthead .page-heading,
+  header.masthead .post-heading,
+  header.masthead .site-heading {
+	color: #fff;
+  }
+  header.masthead .page-heading,
+  header.masthead .site-heading {
+	text-align: center;
+  }
+  header.masthead .page-heading h1, header.masthead .page-heading .h1,
+  header.masthead .site-heading h1,
+  header.masthead .site-heading .h1 {
+	font-size: 3rem;
+  }
+  header.masthead .page-heading .subheading,
+  header.masthead .site-heading .subheading {
+	font-size: 1.5rem;
+	font-weight: 300;
+	line-height: 1.1;
+	display: block;
+	margin-top: 0.625rem;
+	font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  }
+  header.masthead .post-heading h1, header.masthead .post-heading .h1 {
+	font-size: 2.25rem;
+  }
+  header.masthead .post-heading .meta,
+  header.masthead .post-heading .subheading {
+	line-height: 1.1;
+	display: block;
+  }
+  header.masthead .post-heading .subheading {
+	font-size: 1.5rem;
+	font-weight: 600;
+	margin: 0.75rem 0 2rem;
+	font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  }
+  header.masthead .post-heading .meta {
+	font-size: 1.25rem;
+	font-weight: 300;
+	font-style: italic;
+	font-family: "Lora", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  }
+  header.masthead .post-heading .meta a {
+	color: #fff;
+  }
+  @media (min-width: 992px) {
+	header.masthead {
+	  padding-top: 12.5rem;
+	  padding-bottom: 12.5rem;
+	}
+	header.masthead .page-heading h1, header.masthead .page-heading .h1,
+  header.masthead .site-heading h1,
+  header.masthead .site-heading .h1 {
+	  font-size: 5rem;
+	}
+	header.masthead .post-heading h1, header.masthead .post-heading .h1 {
+	  font-size: 3.5rem;
+	}
+	header.masthead .post-heading .subheading {
+	  font-size: 1.875rem;
+	}
+  }
+  
+.form-floating {
+	position: relative;
+  }
+  .form-floating > .form-control,
+  .form-floating > .form-select {
+	height: 4.5rem;
+	line-height: 1.25;
+  }
+  .form-floating > label {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	padding: 1.25rem 0;
+	pointer-events: none;
+	border: 1px solid transparent;
+	transform-origin: 0 0;
+	transition: opacity 0.1s ease-in-out, transform 0.1s ease-in-out;
+  }
+  @media (prefers-reduced-motion: reduce) {
+	.form-floating > label {
+	  transition: none;
+	}
+  }
+  .form-floating > .form-control {
+	padding: 1.25rem 0;
+  }
+  .form-floating > .form-control::-moz-placeholder {
+	color: transparent;
+  }
+  .form-floating > .form-control:-ms-input-placeholder {
+	color: transparent;
+  }
+  .form-floating > .form-control::placeholder {
+	color: transparent;
+  }
+  .form-floating > .form-control:not(:-moz-placeholder-shown) {
+	padding-top: 2.125rem;
+	padding-bottom: 0.625rem;
+  }
+  .form-floating > .form-control:not(:-ms-input-placeholder) {
+	padding-top: 2.125rem;
+	padding-bottom: 0.625rem;
+  }
+  .form-floating > .form-control:focus, .form-floating > .form-control:not(:placeholder-shown) {
+	padding-top: 2.125rem;
+	padding-bottom: 0.625rem;
+  }
+  .form-floating > .form-control:-webkit-autofill {
+	padding-top: 2.125rem;
+	padding-bottom: 0.625rem;
+  }
+  .form-floating > .form-select {
+	padding-top: 2.125rem;
+	padding-bottom: 0.625rem;
+  }
+  .form-floating > .form-control:not(:-moz-placeholder-shown) ~ label {
+	opacity: 0.65;
+	transform: scale(0.65) translateY(-0.5rem) translateX(0rem);
+  }
+  .form-floating > .form-control:not(:-ms-input-placeholder) ~ label {
+	opacity: 0.65;
+	transform: scale(0.65) translateY(-0.5rem) translateX(0rem);
+  }
+  .form-floating > .form-control:focus ~ label,
+  .form-floating > .form-control:not(:placeholder-shown) ~ label,
+  .form-floating > .form-select ~ label {
+	opacity: 0.65;
+	transform: scale(0.65) translateY(-0.5rem) translateX(0rem);
+  }
+  .form-floating > .form-control:-webkit-autofill ~ label {
+	opacity: 0.65;
+	transform: scale(0.65) translateY(-0.5rem) translateX(0rem);
+  }
+  
+.form-floating input,
+.form-floating textarea {
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+}
+.form-floating input:focus,
+.form-floating textarea:focus {
+  box-shadow: none;
+}
+.form-floating label {
+  color: #6c757d;
+}
+  
 /*# sourceMappingURL=bootstrap.min.css.map */

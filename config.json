@@ -1,5 +1,8 @@
 {
     "params":{ 
-        "data_base_uri":"mysql://root@localhost/movie website"
+        "data_base_uri":"mysql://root@localhost/movie website",
+        "username": "admin",
+        "password": "password",
+        "path_upload":"D:\\Documents\\Movie Website\\static\\assets\\img"
      }
  }
