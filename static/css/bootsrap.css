@@ -1776,8 +1776,10 @@ pre code {
 .table td,
 .table th {
 	padding: .75rem;
-	vertical-align: top;
-	border-top: 1px solid #dee2e6
+	vertical-align: center;
+	border-top: 1px solid #dee2e6;
+	color: #585858;
+	font-size: large;
 }
 
 .table thead th {
@@ -9304,8 +9306,9 @@ header.masthead {
   header.masthead .page-heading,
   header.masthead .post-heading,
   header.masthead .site-heading {
-	color: #fff;
+	color: #007bff!important;
   }
+ 
   header.masthead .page-heading,
   header.masthead .site-heading {
 	text-align: center;

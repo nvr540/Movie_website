@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request, session
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename 
-import json, datetime,time,os
+import json, datetime,time,os,math
 app = Flask(__name__)
 app.secret_key = 'super secret key'
 params = json.load(open('config.json'))['params']
@@ -47,10 +47,32 @@ def movies_vertical():
     return render_template("movies_vertical.html")
 @app.route("/dashboard", methods=['GET',  'POST'])
 def dashboard():
-    # if session['admin']== params['username'] and 'admin' in session:
-    movies = Movies.query.all()
+    movies = Movies.query.order_by(Movies.date.desc()).all()
+    # [0:params['no_of_post']]
+    page = request.args.get('page')
+    last = math.ceil(len(movies)/int(params['no_of_movies']))
+    # print(last)
+    # print(page)
+    display_priv = '#'
+    display_next = '#'
+    if str(page).isnumeric() !=True:
+        page = 1
+    elif int(page) > last or int(page) < 1:
+        page =1
+    if int(page) == 1:
+        priv = '#'
+        next = int(page) + 1
+        display_priv = "display:none;"
+    elif int(page) == last:
+        next = '#'
+        display_next = "display:none;"
+        priv = int(page) - 1
+    else:
+        priv = int(page) -1
+        next = int(page) + 1
+    movies = movies[(int(page)-1) * params['no_of_movies']:int(page)*params['no_of_movies']]
     if ('user' in session and session['user'] == params['username']):
-        return render_template('dashboard.html', name='Admin Panel', movies=movies)
+        return render_template('dashboard.html', name='Admin Panel', movies=movies,priv=priv,next=next, display_next=display_next,display_priv=display_priv)
     if request.method == 'POST':
         username = request.form.get('uname')
         password = request.form.get('pass')
@@ -65,7 +87,7 @@ def edit(sno):
     if session['user'] == params['username'] and 'user' in session:
         if request.method == 'GET':
             if sno == '0':
-                return render_template("edit.html", movie=movie, sno=sno, img_name='s-1.jpg')
+                return render_template("Add.html", movie=movie, sno=sno, img_name='s-1.jpg')
             else:
                 return render_template("edit.html", movie=movie, sno=sno, img_name=movie.img_name)
         elif request.method == 'POST':
@@ -74,7 +96,6 @@ def edit(sno):
             description = request.form.get('description')
             genre = request.form.get('genre')
             film_industry = request.form.get('film_industry')
-            global img_name
             img_name = request.form.get('img_name')
 
              #we could use f.filename instead of img_name As we are taking input from the user for the file name I didn't save with the filename uploading I am saving with the filename the user giving
@@ -96,12 +117,23 @@ def edit(sno):
             return redirect('/dashboard')
     return redirect('/dashboard')
 #Image uploader
+@app.route("/uploader/<string:sno>", methods=["POST","GET"])
+def uploader_get(sno):
+    movie = Movies.query.filter_by(sno=sno).first()
+    if session['user'] == params['username'] and 'user' in session:
+        if request.method == 'POST':
+            global image_name
+            image_name = request.form.get("img_name")
+            movie.img_name=image_name
+            db.session.commit()
+            return redirect('/dashboard')
+    return render_template("uploader.html", movie=movie, image_name=movie.img_name)
 @app.route('/uploader', methods=['POST'])
 def uploader():
     if session['user'] == params['username'] and 'user' in session:
         if request.method == 'POST':
             f=request.files['files']
-            f.save(os.path.join(params['path_upload'], secure_filename(img_name)))
+            f.save(os.path.join(params['path_upload'], secure_filename(image_name)))
     return redirect('/dashboard')
 @app.route('/delete/<string:sno>')
 def deleter(sno):

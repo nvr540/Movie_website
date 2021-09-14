@@ -27,6 +27,13 @@
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <div class="my-5">
+                        <form action="/uploader" method="POST" enctype="multipart/form-data" id='fileUpload'>
+                            <div class="file-field">
+                                <input type="file" id="myFile" name="files">
+                                <!-- <label for="myFile">Image Upload</label> -->
+                               <!-- <input type="button" style="display: none;" id="click"> -->
+                            </div>
+                        </form>
                         <form id="contactForm" action="/dashboard/{{sno}}" method="POST"
                             data-sb-form-api-token="API_TOKEN">
 
@@ -88,7 +95,7 @@
                             </div>
                             <!-- Submit Button-->
                             <!-- <button class="btn btn-primary text-uppercase" id="submitButton" onclick="onClick()">movie</button> -->
-                            <input class="btn btn-primary" type="button" value="Add">
+                            <input class="btn btn-primary" type="button" onclick="onClick()" value="Add">
                         </form>
                     </div>
                 </div>
@@ -96,4 +103,17 @@
         </div>
     </main>
 </body>
+<script>
+    function onClick() {
+        setTimeout(() => {
+            document.getElementById('fileUpload').submit()
+            console.log('Upload')
+        }, 2000);
+        setTimeout(() => {
+            
+            document.getElementById('contactForm').submit()
+            console.log("Clicked")
+        }, 1000);
+    }
+</script>
 {% endblock %}

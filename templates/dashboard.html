@@ -1,57 +1,70 @@
+{% extends 'layout.html' %}
+{% block body %}
 
-    {% extends 'layout.html' %}
-    {% block body %}
-
-        <header class="masthead"style="background-image: url('{{url_for('static', filename='assets/img/s-1.jpg')}}')">
-            <div class="container position-relative px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-7">
-                        <div class="site-heading">
-                            <h1>{{name}}</h1>
-                            <!-- <span class="subheading">Adding or Editing a Blog</span> -->
-                        </div>
-                    </div>
+<header class="masthead" style="background-image: url('{{url_for('static', filename='assets/img/background.jpg')}}')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <h1>{{name}}</h1>
+                    <!-- <span class="subheading">Adding or Editing a Blog</span> -->
                 </div>
             </div>
-        </header>
-        <!-- Main Content-->
-        <div class="container px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-md-10 col-lg-8 col-xl-7">
-                    <a href="/dashboard/0"><button class="btn btn-primary">Add a movie+</button></a>
-                    <a href="/logout"><button class="btn btn-primary">logout</button></a>
-                    <table class="table">
-                        <thead>
-                          <tr>
-                            <th scope="col">Serial Number</th>
-                            <th scope="col">Name</th>
-                            <!-- <th scope="col">Content</th> -->
-                            <th scope="col">Slug</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Edit</th>
-                            <th scope="col">Delete</th>
-                          </tr>
-                        </thead>
-                        <tbody>
+        </div>
+    </div>
+</header>
+<!-- Main Content-->
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <div class="d-flex flex-row justify-content-around">
+                <a href="/dashboard/0"><button class="btn btn-primary">Add a movie+</button></a>
+                <a href="/logout"><button class="btn btn-primary">logout</button></a>
+                <form id="form-color">
+                    <div class="search">
+                        <input type="text" name='search' placeholder="Find Your Favourite Movies">
+                        <button><i class="fas fa-search"></i></button>
+                    </div>
+                </form>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Serial Number</th>
+                        <th scope="col">Name</th>
+                        <!-- <th scope="col">Content</th> -->
+                        <th scope="col">Slug</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Upload</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
                     {% for movie in movies %}
-                          <tr>
-                            <td>{{movie.sno}}</td>
-                            <td>{{movie.name}}</td>
-                            <!-- <td>{{movie.description[0:10]}}</td> -->
-                            <td>{{movie.slug}}</td>
-                            <td>{{movie.date}}</td>
-                            <td><a href="/dashboard/{{movie.sno}}"><button class="btn btn-primary">Edit</button></a></td>
-                            <td><a href="/delete/{{movie.sno}}"><button class="btn btn-primary">Delete</button></a></td>
-                          </tr>
-                    {% endfor %} 
-                        </tbody>
-                      </table>
-                      <div class="bottom d-flex justify-content-between mb-4">
-                        <a style="{{display_priv}}" class="previous-btn btn btn-primary text-uppercase" href="?page={{priv}}">&larr; Previous</a>
-                        <a style="{{display_next}}"class="next-btn btn-primary text-uppercase" href="?page={{next}}">Next →</a>
-                    </div>
-                    </div>
+                    <tr>
+                        <td>{{movie.sno}}</td>
+                        <td>{{movie.name}}</td>
+                        <!-- <td>{{movie.description[0:10]}}</td> -->
+                        <td>{{movie.slug}}</td>
+                        <td>{{movie.date}}</td>
+                        <td><a href="/dashboard/{{movie.sno}}"><button class="btn btn-primary">Edit</button></a></td>
+                        <td><a href="/uploader/{{movie.sno}}"><button class="btn btn-primary">Upload Photo</button></a>
+                        </td>
+                        <td><button class="btn btn-primary" onclick="r=confirm('Are you sure');if (r==true){window.location.replace('/delete/{{movie.sno}}')}">Delete</button></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="bottom d-flex justify-content-between mb-4">
+                <a style="{{display_priv}}" class="previous-btn btn btn-primary text-uppercase"
+                    href="?page={{priv}}">&larr; Previous</a>
+                <a style="{{display_next}}" class="next-btn btn-primary text-uppercase" href="?page={{next}}">Next →</a>
             </div>
         </div>
 
-        {% endblock %}
+    </div>
+</div>
+
+{% endblock %}

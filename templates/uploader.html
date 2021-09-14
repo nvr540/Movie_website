@@ -7,7 +7,7 @@
     <!-- Navigation-->
 
     <!-- Page Header-->
-    {%set fname = 'assets/img/' + img_name %}
+    {%set fname = 'assets/img/' + image_name %}
     <header class="masthead"
         style="background-image: url('{{url_for('static', filename=fname)}}')"></header>
         <div class="container position-relative px-4 px-lg-5">
@@ -27,45 +27,23 @@
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <div class="my-5">
-                        <form id="contactForm" action="/dashboard/{{sno}}" method="POST"
+                        <form action="/uploader/{{movie.sno}}" method="POST" enctype="multipart/form-data" id='fileUpload'>
+                            <div class="file-field">
+                                <input type="file" id="myFile" name="files">
+                                <!-- <label for="myFile">Image Upload</label> -->
+                               <!-- <input type="button" style="display: none;" id="click"> -->
+                            </div>
+                        </form>
+                        <form id="contactForm" action="/uploader/{{movie.sno}}" method="POST"
                             data-sb-form-api-token="API_TOKEN">
 
 
                             <div class="form-floating">
-                                <input class="form-control" id="title" type="text" name="name" placeholder="Name"
-                                    value="{{movie.name}}" required />
-                                <label for="name">Name</label>
-                            </div>
-                            <div class="form-floating">
-                                <input class="form-control" id="slug" type="text" name="slug" placeholder="Slug"
-                                    value="{{movie.slug}}" required />
-                                <label for="name">Slug</label>
-                            </div>
-                            <div class="form-floating">
-                                <input class="form-control" id="slug" type="text" name="genre" placeholder="Slug"
-                                    value="{{movie.genre}}" required />
-                                <label for="name">Genre</label>
-                            </div>
-                            <div class="form-floating">
-                                <input class="form-control" id="slug" type="text" name="film_industry" placeholder="Slug"
-                                    value="{{movie.film_industry}}" required />
-                                <label for="name">Film Industry</label>
-                            </div>
-
-                            <div class="form-floating">
-                                <input class="form-control" id="slug" type="text" name="img_name" placeholder="Slug"
+                                <input class="form-control" id="slug" type="text" name="img_name" placeholder="Image Name"
                                     value="{{movie.img_name}}" required />
                                 <label for="name">Image Name</label>
                             </div>
-                            <div class="form-floating">
-                                <textarea class="form-control" id="message" name="description" placeholder="Content Here"
-                                    required style="height: 12rem"
-                                    data-sb-validations="required">{{movie.content}}</textarea>
-                                <label for="message">Content</label>
-                                <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.
-                                </div>
-                            </div>
-                            <br />
+                            
                             <!-- Submit success message-->
                             <!---->
                             <!-- This is what your users will see when the form-->
@@ -88,7 +66,7 @@
                             </div>
                             <!-- Submit Button-->
                             <!-- <button class="btn btn-primary text-uppercase" id="submitButton" onclick="onClick()">movie</button> -->
-                            <input class="btn btn-primary" type="button" value="Add">
+                            <input class="btn btn-primary" type="button" onclick="onClick()" value="Add">
                         </form>
                     </div>
                 </div>
@@ -96,4 +74,17 @@
         </div>
     </main>
 </body>
+<script>
+    function onClick() {
+        setTimeout(() => {
+            document.getElementById('fileUpload').submit()
+            console.log('Upload')
+        }, 2000);
+        setTimeout(() => {
+            
+            document.getElementById('contactForm').submit()
+            console.log("Clicked")
+        }, 1000);
+    }
+</script>
 {% endblock %}
