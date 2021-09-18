@@ -175,8 +175,11 @@ def seo_links(sno):
         return redirect("/dashboard")
 
 # Image uploader
+image_name=""
 @app.route("/uploader/<string:sno>", methods=["POST", "GET"])
 def uploader_get(sno):
+    if sno.isnumeric() != True:
+        return  redirect("/dashboard")
     movie = Movies.query.filter_by(sno=sno).first()
     if session['user'] == params['username'] and 'user' in session:
         if request.method == 'POST':
@@ -186,7 +189,8 @@ def uploader_get(sno):
             db.session.commit()
             time.sleep(2)
             return redirect('/dashboard')
-        return render_template("uploader.html", movie=movie, image_name=movie.img_name)
+        else:
+            return render_template("uploader.html", movie=movie, image_name=movie.img_name)
 
 
 @app.route('/uploader', methods=['POST'])
@@ -198,7 +202,7 @@ def uploader():
                                 secure_filename(image_name)))
     return redirect('/dashboard')
 
-
+#deleter
 @app.route('/delete/<string:sno>')
 def deleter(sno):
     if session['user'] == params['username'] and 'user' in session:

@@ -210,7 +210,10 @@ nav .menu li a:hover{
     align-items: center;
     flex-direction: column;
     box-shadow: 2px 2px 30px rgba(0,0,0,0.2);
-    margin: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
     border-radius: 5px;
     overflow: hidden;
     border-top: 3px solid #292929;
@@ -243,10 +246,11 @@ nav .menu li a:hover{
 }
 #movies-list{
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
     flex-wrap: wrap;
 }
+
 .quality{
     position: absolute;
     top: 0px;
@@ -389,6 +393,7 @@ nav .menu-btn{
         flex-direction: row;
         width:90%;
         border: 1px solid rgba(0,0,0,0.2);
+
     }
     .movies-box a{
         width:65%;
