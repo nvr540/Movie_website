@@ -59,17 +59,17 @@ def home():
     return render_template("index.html", latest=latest, comedy=comedy, horror=horror, action=action, romance=romance, first_row=first_row, second_row=second_row, third_row=third_row, fourth_row=fourth_row)
 
 
-@app.route("/movies/<string:slug>")
+@app.route("/movies/download/<string:slug>")
 def movie_download(slug):
     movie = Movies.query.filter_by(slug=slug).first()
     return render_template("test.html", movie=movie)
 
-
-@app.route("/movies")
-def movies_vertical():
-    # movies = Movies.query.all()
-    # latest = Movies.query.order_by(Movies.date.desc()).limit(7).all()
-    return render_template("movies_vertical.html")
+"""Vertically movies display"""
+@app.route("/movies/<string:genre>")
+def movies_vertical(genre):
+    movies = Movies.query.all()
+    # movies = Movies.query.filter_by(genre=genre).order_by(Movies.date.desc()).limit(7).all()
+    return render_template("movies_vertical.html", movies=movies)
 
 
 """Dash Board"""
