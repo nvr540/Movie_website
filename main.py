@@ -35,12 +35,16 @@ def home():
     # Have to make catagory wise selection.
     catagory = request.args.get('catagory')
     if catagory == "film":
+        "anime"
         action = Movies.query.filter_by(
             film_industry='anime').order_by(Movies.date.desc()).all()
+        "hollywood"
         romance = Movies.query.filter_by(
             film_industry='hollywood').order_by(Movies.date.desc()).all()
+        "bollywood"
         horror = Movies.query.filter_by(
             film_industry='bollywood').order_by(Movies.date.desc()).all()
+        "others"
         comedy = Movies.query.filter(Movies.film_industry != 'bollywood').filter(
             Movies.film_industry != 'hollywood').filter(Movies.film_industry != 'anime').order_by(Movies.date.desc()).all()
         first_row, second_row, third_row, fourth_row = [
@@ -65,11 +69,19 @@ def movie_download(slug):
     return render_template("test.html", movie=movie)
 
 """Vertically movies display"""
-@app.route("/movies/<string:genre>")
+@app.route("/industry/<string:genre>")
 def movies_vertical(genre):
-    movies = Movies.query.all()
-    # movies = Movies.query.filter_by(genre=genre).order_by(Movies.date.desc()).limit(7).all()
+    # movies = Movies.query.all()
+    if genre.lower() == "others":
+        movies =  Movies.query.filter(Movies.film_industry != 'bollywood').filter(
+            Movies.film_industry != 'hollywood').filter(Movies.film_industry != 'anime').order_by(Movies.date.desc()).all()
+    else:
+        # genre = genre.lower()
+        movies = Movies.query.filter_by(genre=genre).order_by(Movies.date.desc()).limit(7).all()
+        if len(movies) == 0:
+            movies = Movies.query.filter_by(film_industry=genre).order_by(Movies.date.desc()).limit(7).all()
     return render_template("movies_vertical.html", movies=movies)
+
 
 
 """Dash Board"""

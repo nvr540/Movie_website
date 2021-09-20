@@ -124,6 +124,12 @@ nav .menu li a:hover{
     margin: 30px 30px 0px 30px;
     font-weight: 500;
     font-size: 1.3rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    
+}
+.latest-heading a{
+    color: #1a1a1a;
 }
 .latest-box{
     display: flex;
