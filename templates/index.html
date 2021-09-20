@@ -64,7 +64,7 @@
                 <div class="latest-box">
                     <!--img-------->
                     {%set fname = 'assets/img/' + romance.img_name %}
-                    <a href="/movies/download{{romance.slug}}">
+                    <a href="/movies/download/{{romance.slug}}">
                         <div class="latest-b-img">
                             <img src="{{url_for('static',filename=fname)}}"" alt="{{romance.name}}">
                         </div>
@@ -118,7 +118,7 @@
                 <div class="latest-box">
                     <!--img-------->
                     {%set fname = 'assets/img/' + comedy.img_name %}
-                    <a href="/movies/download{{comedy.slug}}">
+                    <a href="/movies/download/{{comedy.slug}}">
                         <div class="latest-b-img">
                             <img src="{{url_for('static',filename=fname)}}" alt="{{comedy.name}}">
                         </div>

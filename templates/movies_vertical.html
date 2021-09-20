@@ -2,7 +2,7 @@
 {% block body %}
 <!--movies---------------------------->
 <div class="movies-heading">
-    <h2>Movies</h2>
+    <h2 style="text-align: center; background-color: #007bff;">{{genre}}</h2>
 </div>
 <section id="movies-list">
     <!--box-1------------------------>
@@ -24,5 +24,9 @@
 
 
 </section>
+<div class="bottom d-flex justify-content-between mb-4">
+    <a style="{{display_priv}}" class="previous-btn btn btn-primary text-uppercase" href="?page={{priv}}">&larr; Previous</a>
+    <a style="{{display_next}}"class="next-btn btn-primary text-uppercase" href="?page={{next}}">Next →</a>
+</div>
 
 {% endblock %}

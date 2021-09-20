@@ -14,6 +14,35 @@ app.config['SQLALCHEMY_DATABASE_URI'] = params['data_base_uri']
 db = SQLAlchemy(app)
 
 
+def pagination(movies):
+    """It will return the pagination movie number in any page that I want"""
+    page = request.args.get('page')
+    last = math.ceil(len(movies)/int(params['no_of_movies']))
+    # print(last)
+    # print(page)
+    display_priv = '#'
+    display_next = '#'
+    if str(page).isnumeric() != True:
+        page = 1
+    elif int(page) > last:
+        page = last
+    elif  int(page) < 1:
+        page=1
+    if int(page) == 1:
+        priv = '#'
+        next = int(page) + 1
+        display_priv = "display:none;"
+    elif int(page) == last:
+        next = '#'
+        display_next = "display:none;"
+        priv = int(page) - 1
+    else:
+        priv = int(page) - 1
+        next = int(page) + 1
+    movies = movies[(int(page)-1) * params['no_of_movies']                    :int(page)*params['no_of_movies']]
+    return {"movies": movies, "display_next": display_next, "display_priv": display_priv, "priv": priv, "next": next}
+
+
 class Movies(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20), nullable=False)
@@ -31,36 +60,45 @@ class Movies(db.Model):
 @app.route("/")
 def home():
     # movies = Movies.query.all()
-    latest = Movies.query.order_by(Movies.date.desc()).limit(7).all()
+    latest = Movies.query.order_by(Movies.date.desc()).all()
+    latest = pagination(latest)
     # Have to make catagory wise selection.
     catagory = request.args.get('catagory')
     if catagory == "film":
         "anime"
         action = Movies.query.filter_by(
             film_industry='anime').order_by(Movies.date.desc()).all()
+        action = pagination(action)
         "hollywood"
         romance = Movies.query.filter_by(
             film_industry='hollywood').order_by(Movies.date.desc()).all()
+        romance = pagination(romance)
         "bollywood"
         horror = Movies.query.filter_by(
             film_industry='bollywood').order_by(Movies.date.desc()).all()
+        horror = pagination(horror)
         "others"
         comedy = Movies.query.filter(Movies.film_industry != 'bollywood').filter(
             Movies.film_industry != 'hollywood').filter(Movies.film_industry != 'anime').order_by(Movies.date.desc()).all()
+        comedy = pagination(comedy)
         first_row, second_row, third_row, fourth_row = [
             "Anime", "Hollywood", "Bollywood", "Others"]
     else:
         action = Movies.query.filter_by(
             genre='action').order_by(Movies.date.desc()).all()
+        action = pagination(action)
         romance = Movies.query.filter_by(
             genre='romance').order_by(Movies.date.desc()).all()
+        romance = pagination(romance)
         horror = Movies.query.filter_by(
             genre='horror').order_by(Movies.date.desc()).all()
+        horror = pagination(horror)
         comedy = Movies.query.filter_by(
             genre='comedy').order_by(Movies.date.desc()).all()
+        comedy = pagination(comedy)
         first_row, second_row, third_row, fourth_row = [
             "Action", "Romance", "Horror", "Comedy"]
-    return render_template("index.html", latest=latest, comedy=comedy, horror=horror, action=action, romance=romance, first_row=first_row, second_row=second_row, third_row=third_row, fourth_row=fourth_row)
+    return render_template("index.html", latest=latest["movies"], comedy=comedy["movies"], horror=horror["movies"], action=action["movies"], romance=romance["movies"], first_row=first_row, second_row=second_row, third_row=third_row, fourth_row=fourth_row, next=latest["next"],priv=latest['priv'],display_next=latest["display_next"], display_priv=latest["display_priv"])
 
 
 @app.route("/movies/download/<string:slug>")
@@ -68,20 +106,29 @@ def movie_download(slug):
     movie = Movies.query.filter_by(slug=slug).first()
     return render_template("test.html", movie=movie)
 
+
 """Vertically movies display"""
+
+
 @app.route("/industry/<string:genre>")
 def movies_vertical(genre):
     # movies = Movies.query.all()
     if genre.lower() == "others":
-        movies =  Movies.query.filter(Movies.film_industry != 'bollywood').filter(
+        movies = Movies.query.filter(Movies.film_industry != 'bollywood').filter(
             Movies.film_industry != 'hollywood').filter(Movies.film_industry != 'anime').order_by(Movies.date.desc()).all()
+        movie = pagination(movies)
+        # print(movie)
     else:
         # genre = genre.lower()
-        movies = Movies.query.filter_by(genre=genre).order_by(Movies.date.desc()).limit(7).all()
+        movies = Movies.query.filter_by(genre=genre).order_by(
+            Movies.date.desc()).limit(7).all()
+        # movies = Movies.query.all()
         if len(movies) == 0:
-            movies = Movies.query.filter_by(film_industry=genre).order_by(Movies.date.desc()).limit(7).all()
-    return render_template("movies_vertical.html", movies=movies)
-
+            movies = Movies.query.filter_by(film_industry=genre).order_by(
+                Movies.date.desc()).limit(7).all()
+        movies = pagination(movies)
+        return render_template("movies_vertical.html", movies=movies["movies"], display_next=movies["display_next"], display_priv=movies["display_priv"], next=movies["next"], priv=movies["priv"], genre=genre)
+    # return render_template("movies_vertical.html", movies=movies)
 
 
 """Dash Board"""
@@ -142,7 +189,8 @@ def edit(sno):
             genre = request.form.get('genre').lower()
             film_industry = request.form.get('film_industry').lower()
             global image_name
-            image_name = request.form.get("img_name")#This global variable will go to /uploader
+            # This global variable will go to /uploader
+            image_name = request.form.get("img_name")
 
             # we could use f.filename instead of img_name As we are taking input from the user for the file name I didn't save with the filename uploading I am saving with the filename the user giving
             if sno == '0':
@@ -162,10 +210,10 @@ def edit(sno):
             time.sleep(2)
             return redirect('/dashboard')
     return redirect('/dashboard')
-# SEO
 
 
-@app.route("/seo/<string:sno>", methods=["GET","POST"])
+"""SEO = Search Engine Optimization"""
+@app.route("/seo/<string:sno>", methods=["GET", "POST"])
 def seo_links(sno):
     movies = Movies.query.filter_by(sno=sno).first()
     if request.method == "GET":
@@ -177,8 +225,8 @@ def seo_links(sno):
             img_name = movies.img_name
             meta_description = movies.meta_description
             meta_keywords = movies.meta_keywords
-        return render_template("seo_edit.html", meta_description=meta_description, meta_keywords=meta_keywords, img_name=img_name,sno=sno)
-    elif request.method =="POST":
+        return render_template("seo_edit.html", meta_description=meta_description, meta_keywords=meta_keywords, img_name=img_name, sno=sno)
+    elif request.method == "POST":
         meta_description = request.form.get('meta_description')
         meta_keywords = request.form.get('meta_keywords')
         movies.meta_description = meta_description
@@ -186,18 +234,21 @@ def seo_links(sno):
         db.session.commit()
         return redirect("/dashboard")
 
+
 # Image uploader
-image_name=""
+image_name = ""
+
+
 @app.route("/uploader/<string:sno>", methods=["POST", "GET"])
 def uploader_get(sno):
     if sno.isnumeric() != True:
-        return  redirect("/dashboard")
+        return redirect("/dashboard")
     movie = Movies.query.filter_by(sno=sno).first()
     if session['user'] == params['username'] and 'user' in session:
         if request.method == 'POST':
             global image_name
             image_name = request.form.get("img_name")
-            movie.img_name = image_name #this global variable will go to /uploader
+            movie.img_name = image_name  # this global variable will go to /uploader
             db.session.commit()
             time.sleep(2)
             return redirect('/dashboard')
@@ -214,7 +265,9 @@ def uploader():
                                 secure_filename(image_name)))
     return redirect('/dashboard')
 
-#deleter
+# deleter
+
+
 @app.route('/delete/<string:sno>')
 def deleter(sno):
     if session['user'] == params['username'] and 'user' in session:
