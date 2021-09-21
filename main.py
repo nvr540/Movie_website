@@ -51,6 +51,9 @@ class Movies(db.Model):
     genre = db.Column(db.String(200), nullable=False)
     img_name = db.Column(db.String(20), nullable=False)
     film_industry = db.Column(db.String(20), nullable=False)
+    mega_link = db.Column(db.String(20), nullable=False)
+    youtube_link = db.Column(db.String(20), nullable=False)
+    gdrive_link = db.Column(db.String(20), nullable=False)
     meta_description = db.Column(db.String(20), nullable=False)
     meta_keywords = db.Column(db.String(20), nullable=False)
     date = db.Column(db.String(20), nullable=False)
@@ -191,11 +194,14 @@ def edit(sno):
             global image_name
             # This global variable will go to /uploader
             image_name = request.form.get("img_name")
+            youtube_link = request.form.get("youtube_link")
+            mega_link = request.form.get("mega_link")
+            gdrive_link = request.form.get("gdrive_link")
 
             # we could use f.filename instead of img_name As we are taking input from the user for the file name I didn't save with the filename uploading I am saving with the filename the user giving
             if sno == '0':
                 post = Movies(name=name, slug=slug,
-                              description=description, genre=genre, film_industry=film_industry, date=datetime.datetime.now(), img_name=image_name)
+                              description=description, genre=genre, film_industry=film_industry, date=datetime.datetime.now(), img_name=image_name, youtube_link=youtube_link, mega_link=mega_link, gdrive_link=gdrive_link)
                 db.session.add(post)
                 db.session.commit()
             else:
@@ -206,6 +212,9 @@ def edit(sno):
                 movie.genre = genre
                 movie.film_industry = film_industry
                 movie.img_name = image_name
+                movie.gdrive_link = gdrive_link
+                movie.youtube_link = youtube_link
+                movie.mega_link = mega_link
                 db.session.commit()
             time.sleep(2)
             return redirect('/dashboard')
