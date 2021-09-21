@@ -65,6 +65,21 @@
                                 <label for="name">Image Name</label>
                             </div>
                             <div class="form-floating">
+                                <input class="form-control" id="slug" type="text" name="youtube_link" placeholder="Slug"
+                                    value="{{movie.youtube_link}}" required />
+                                <label for="name">Youtube Trailer Link</label>
+                            </div>
+                            <div class="form-floating">
+                                <input class="form-control" id="slug" type="text" name="mega_link" placeholder="Slug"
+                                    value="{{movie.mega_link}}" required />
+                                <label for="name">Mega</label>
+                            </div>
+                            <div class="form-floating">
+                                <input class="form-control" id="slug" type="text" name="gdrive_link" placeholder="Slug"
+                                    value="{{movie.gdrive_link}}" required />
+                                <label for="name">Google Drive Link</label>
+                            </div>
+                            <div class="form-floating">
                                 <textarea class="form-control" id="message" name="description" placeholder="Content Here"
                                     required style="height: 12rem"
                                     data-sb-validations="required">{{movie.content}}</textarea>
