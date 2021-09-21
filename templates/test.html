@@ -1,5 +1,72 @@
 {% extends 'layout.html' %}
 {% block body %}
-  {% set fname = 'assets/img/' + movie.img_name %}  
-  <img src={{url_for('static',filename=fname)}} >
+{% set fname = 'assets/img/' + movie.img_name %}
+<style>
+  @media (min-width: 992px) {
+    header.masthead {
+      padding-top: 20rem;
+      padding-bottom: 20rem;
+    }
+    }
+    #para_graph {
+      text-transform: uppercase;
+      font-weight: 500;
+      letter-spacing: .4px;
+      text-align: center;
+      margin: 1rem;
+      color: #585858;
+    }
+    .links{
+      text-align: center;
+      font-style: oblique;
+      text-transform: uppercase;
+      color: #585858;
+      
+    }
+    .video-container { position: relative; padding-bottom: 40.25%; padding-top: 30px; height: 0; overflow: hidden; }
+
+.video-container iframe, .video-container object, .video-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+
+</style>
+<header class="masthead" style="background-image: url('{{url_for('static', filename=fname)}}')">
+
+
+</header>
+
+<body>
+  <div class="container position-relative px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <div class="site-heading">
+          <h1 style="text-align: center;font-style: oblique; color: #585858;">Godzila</h1>
+          <!-- <span class="subheading">Adding or Editing a Blog</span> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div id="para_graph">
+      <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+      magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+      Excepteur sint occaecat cupidatat ntason proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+    </div>
+    <hr>
+    <h2 style="color: #585858;font-style: oblique; font-size: 2rem;  ">Trailer:</h2>
+    <div class="d-flex justify-content-center video-container">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/UhkH5z2s-Yk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  <h2 class="links">Links to download</h2>
+    <div class="d-flex justify-content-center px-2 mx-5 my-5 flex-wrap">
+      <a href="/links" class="mx-2 my-2"><img src="{{url_for('static',filename='assets/img/mega.png')}}"
+          style="width: 100px;" class="btn"></a>
+      <a href="/links" class="mx-2 my-2"><img src="{{url_for('static',filename='assets/img/google_drive.png')}}"
+          style="width: 100px;" class="btn"></a>
+    </div>
+  </div>
+</body>
+<!-- </div> -->
 {% endblock %}
