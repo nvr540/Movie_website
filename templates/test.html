@@ -2,70 +2,178 @@
 {% block body %}
 {% set fname = 'assets/img/' + movie.img_name %}
 <style>
-  @media (min-width: 992px) {
-    header.masthead {
-      padding-top: 20rem;
-      padding-bottom: 20rem;
-    }
-    }
-    #para_graph {
-      text-transform: uppercase;
-      font-weight: 500;
-      letter-spacing: .4px;
-      text-align: center;
-      margin: 1rem;
-      color: #585858;
-    }
-    .links{
-      text-align: center;
-      font-style: oblique;
-      text-transform: uppercase;
-      color: #585858;
-      
-    }
-    .video-container { position: relative; padding-bottom: 40.25%; padding-top: 30px; height: 0; overflow: hidden; }
+  .container2 {
+    position: relative;
+    width: 100%;
+    /* border: 2px solid limegreen; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
 
-.video-container iframe, .video-container object, .video-container embed { position: absolute; top: 0; width: 90%; height: 100%;margin: auto; }
+  .container2 .card2 {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    max-width: 600px;
+    margin: 10px;
+    padding: 15px;
+    /* border: 2px solid red; */
+    /* box-shadow: -3px 3px rgba(0, 0, 0, 0.2); */
+    justify-content: space-between;
+    transition: .3s;
+  }
+
+  .container2 .card2:hover {
+    /* box-shadow: -8px 8px rgba(0, 0, 0, 0.2); */
+  animation: pulse 1s ease-in-out;
+    transition: .3s;
+  }
+
+  .container2 .card2 .card-img {
+    max-width: 220px;
+    flex: 0 0 220px;
+  }
+
+  .container2 .card2 .card-img img {
+    max-width: 100%;
+    /* height: 90%; */
+    border-radius: 20px;
+  }
+
+  .container2 .card2 .description {
+    margin-left: 20px;
+    margin-top: 0px;
+    color: #585858;
+    /* letter-spacing: 1.5px; */
+    font-size: 1.2rem;
+    line-height: 2rem;
+    text-transform: capitalize;
+  }
+
+  .container2 .description {
+    margin: 2rem;
+    /* margin-top: 0px;/ */
+    color: #585858;
+    /* letter-spacing: 1.5px; */
+    font-size: 1.2rem;
+    line-height: 2rem;
+    text-transform: capitalize;
+  }
+
+  .container2 .card2 .description h2,
+  p {
+    margin-top: 0px;
+  }
+
+ .download_links{
+   display: flex;
+   justify-content: space-between;
+   width: 70%;
+   /* flex-wrap: wrap; */
+   border: 2px solid cyan;
+   margin: auto
+ }
+ .buttn{
+   position: relative;
+    text-decoration: none;
+    display: inline-block;
+    vertical-align: middle;
+    text-transform: uppercase;
+    letter-spacing: .2rem;
+    width: 158px;
+    height: 38px;
+    color: #fff;
+    border: 1px solid rgba(10, 0, 0, 0.76);
+    border-radius: 13px 13px 13px 13px;
+    background-color: #dd4d4d;
+    -webkit-box-shadow: 0px 1px 3px 0px #333333;
+    -moz-box-shadow: 0px 1px 3px 0px #333333;
+    box-shadow: 0px 1px 3px 0px #333333;
+    transition: .3s;
+ }
+ .buttn:hover{
+  animation: pulse 1s ease-in-out;
+  transition: .3s;
+ }
+ @keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: .7;
+  }
+  70% {
+    transform: scale(.9);
+    opacity: .5;
+  }
+    100% {
+    transform: scale(1);
+    opacity: .3;
+  }
+}
 
 
+
+  @media(max-width:1100px) {
+    .container2 .card2 {
+      flex-direction: column;
+      border: 2px solid cyan;
+    }
+
+    .container2 .card2 .card-img {
+      max-width: 100%;
+    }
+    
+    .container2 .download_links{
+      flex-direction: column;
+      justify-content: center;
+    }
+    .container2 .buttn{
+      margin: auto;
+      margin-top: 10px;
+    }
+  }
 </style>
-<header class="masthead" style="background-image: url('{{url_for('static', filename=fname)}}')">
-
-
-</header>
-
-<body>
-  <div class="container position-relative px-4 px-lg-5">
-    <div class="row gx-4 gx-lg-5 justify-content-center">
-      <div class="col-md-10 col-lg-8 col-xl-7">
-        <div class="site-heading">
-          <h1 style="text-align: center;font-style: oblique; color: #585858;">{{movie.name}}</h1>
-          <!-- <span class="subheading">Adding or Editing a Blog</span> -->
-        </div>
-      </div>
+<div class="container2">
+  <div class="card2">
+    <div class="card-img">
+      <img src={{url_for('static', filename=fname)}} alt={{movie.name}}>
     </div>
-  </div>
-  <div>
-    <div id="para_graph">
+    <div class="description">
+      <h2 class="title">{{movie.name}}</h2>
       <p>
-    {{movie.description}}
-    </p>
-    </div>
-    <hr>
-    <h2 style="color: #585858;font-style: oblique; font-size: 2rem;  ">Trailer:</h2>
-    <div class="d-flex justify-content-center video-container">
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/UhkH5z2s-Yk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      
-      <!-- """Have to add movie.youtube_link""" -->
-  </div>
-  <h2 class="links">Links to download</h2>
-    <div class="d-flex justify-content-center px-2 mx-5 my-5 flex-wrap">
-      <a href="{{movie.mega_link}}" class="mx-2 my-2"><img src="{{url_for('static',filename='assets/img/mega.png')}}"
-          style="width: 100px;" class="btn"></a>
-      <a href="{{movie.gdive_link}}" class="mx-2 my-2"><img src="{{url_for('static',filename='assets/img/google_drive.png')}}"
-          style="width: 100px;" class="btn"></a>
+        <!-- {{movie.description.split('\n')[0]}} -->
+        <strong>Director:</strong> Madarchud<br>
+        <strong>Language:</strong> English<br>
+        <strong>Film Industry:</strong> {{movie .film_industry}}<br>
+        <strong>Genres:</strong> {{movie.genre}}<br>
+        <strong>Cast:</strong> Sharukh khan, kriti kharbanda<br>
+      </p>
     </div>
   </div>
-</body>
-<!-- </div> -->
+</div>
+<div class="container2">
+  <div class="description">
+    <h2>Description: </h2>
+    {%for description in movie.description.split('\n') %}
+    <p>{{description}}</p>
+    {%endfor%}
+  </div>
+</div>
+
+<div class="container2" style="flex-direction: column;">
+    <h2 style="margin: 20px;color: #585858;">Trailer</h2>
+    <iframe width="560px" height="315px"  src="https://www.youtube.com/embed/Zs28J_SDXYQ" title="YouTube video player" frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+  </div>
+<div class="container2" style="flex-direction: column;">
+<h2 style="color: var(--common)">Download Links</h2>
+  <div class="download_links">
+    <button class="buttn">Mega</button>
+    <button class="buttn">Gdrive</button>
+    <button class="buttn">OneDrive</button>
+    <button class="buttn">Mirror</button>
+  </div>
+</div>
+
 {% endblock %}
