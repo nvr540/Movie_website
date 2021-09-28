@@ -27,7 +27,7 @@
 
   .container2 .card2:hover {
     /* box-shadow: -8px 8px rgba(0, 0, 0, 0.2); */
-  animation: pulse 1s ease-in-out;
+    animation: pulse 1s ease-in-out;
     transition: .3s;
   }
 
@@ -67,16 +67,34 @@
     margin-top: 0px;
   }
 
- .download_links{
-   display: flex;
-   justify-content: space-between;
-   width: 70%;
-   /* flex-wrap: wrap; */
-   border: 2px solid cyan;
-   margin: auto
- }
- .buttn{
-   position: relative;
+  .download_links {
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+    /* flex-wrap: wrap; */
+    /* border: 2px solid cyan; */
+    margin: auto
+  }
+
+  .video-responsive {
+    overflow: hidden;
+    padding-bottom: 56.25%;
+    position: relative;
+    margin: 5rem;
+    margin-top: 2px;
+    height: 0;
+  }
+
+  .video-responsive iframe {
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+  }
+
+  .buttn {
+    position: relative;
     text-decoration: none;
     display: inline-block;
     vertical-align: middle;
@@ -85,52 +103,75 @@
     width: 158px;
     height: 38px;
     color: #fff;
-    border: 1px solid rgba(10, 0, 0, 0.76);
+    border: 1px solid #3c73ff;
     border-radius: 13px 13px 13px 13px;
-    background-color: #dd4d4d;
+    /* background-color: #3c73ff; */
+    background-image: linear-gradient(to bottom right,#3c73ff, cyan);
     -webkit-box-shadow: 0px 1px 3px 0px #333333;
     -moz-box-shadow: 0px 1px 3px 0px #333333;
     box-shadow: 0px 1px 3px 0px #333333;
     transition: .3s;
- }
- .buttn:hover{
-  animation: pulse 1s ease-in-out;
-  transition: .3s;
- }
- @keyframes pulse {
-  0% {
-    transform: scale(1);
-    opacity: .7;
   }
-  70% {
-    transform: scale(.9);
-    opacity: .5;
+
+  .buttn:hover {
+    box-shadow: 8px 8px #99bdff;
+    transition: .3s;
   }
+  .buttn:focus{
+    outline: none;
+    animation: pulse 1s ease-in-out;
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: .7;
+    }
+
+    70% {
+      transform: scale(.9);
+      opacity: .5;
+    }
+
     100% {
-    transform: scale(1);
-    opacity: .3;
+      transform: scale(1);
+      opacity: .3;
+    }
   }
-}
 
 
 
   @media(max-width:1100px) {
     .container2 .card2 {
       flex-direction: column;
-      border: 2px solid cyan;
+      /* border: 2px solid cyan; */
     }
 
     .container2 .card2 .card-img {
       max-width: 100%;
     }
-    
-    .container2 .download_links{
+
+    .container2 .download_links {
       flex-direction: column;
       justify-content: center;
     }
-    .container2 .buttn{
+
+    .container2 .buttn {
       margin: auto;
       margin-top: 10px;
+    }
+
+    .container2 .card2 .description {
+      margin-top: 2rem;
+    }
+
+    .video-responsive {
+      margin: auto;
+    }
+
+    .buttn:hover {
+      animation: pulse 1s ease-in-out;
+      transition: .3s;
     }
   }
 </style>
@@ -161,13 +202,14 @@
   </div>
 </div>
 
+<h2 style="text-align:center;color: #585858;">Trailer</h2>
+<div class="video-responsive">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/bknybcgfjAk" title="YouTube video player"
+    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen></iframe>
+</div>
 <div class="container2" style="flex-direction: column;">
-    <h2 style="margin: 20px;color: #585858;">Trailer</h2>
-    <iframe width="560px" height="315px"  src="https://www.youtube.com/embed/Zs28J_SDXYQ" title="YouTube video player" frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
-  </div>
-<div class="container2" style="flex-direction: column;">
-<h2 style="color: var(--common)">Download Links</h2>
+  <h2 style="color: var(--common)">Download Links</h2>
   <div class="download_links">
     <button class="buttn">Mega</button>
     <button class="buttn">Gdrive</button>

@@ -281,6 +281,9 @@ def uploader():
 def deleter(sno):
     if session['user'] == params['username'] and 'user' in session:
         post = Movies.query.filter_by(sno=sno).first()
+        image_name = post.img_name
+        os.remove(os.path.join(params['path_upload'],
+                                secure_filename(image_name)))
         db.session.delete(post)
         db.session.commit()
     return redirect('/dashboard')
