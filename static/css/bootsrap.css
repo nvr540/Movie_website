@@ -2654,12 +2654,16 @@ fieldset:disabled a.btn {
     vertical-align: middle;
 	color: #fff;
     letter-spacing: .2rem;
-    border: 1px solid #3c73ff;
-    /* background-color: #3c73ff; */
-    background-image: linear-gradient(to bottom right,#3c73ff, cyan);
+    border: 1px solid rgb(130, 14, 63);
+    background-color: rgb(130, 14, 63);
+    /* background-image: linear-gradient(to bottom right,rgb(130, 14, 63), rgb(148, 90, 118)); */
     -webkit-box-shadow: 0px 1px 3px 0px #333333;
     -moz-box-shadow: 0px 1px 3px 0px #333333;
     box-shadow: 0px 1px 3px 0px #333333;}
+	.btn-myweb:hover, .btn-myweb:focus, .btn-myweb:active{
+		color: #fff;
+		background: rgba(130, 14, 63, .9);
+	}
 .btn-primary:hover {
 	color: #fff;
 	background-color: #0069d9;
