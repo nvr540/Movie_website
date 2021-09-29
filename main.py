@@ -22,6 +22,7 @@ def pagination(movies):
     # print(page)
     display_priv = '#'
     display_next = '#'
+    justify_content = "justify-content-between"
     if str(page).isnumeric() != True:
         page = 1
     elif int(page) > last:
@@ -32,6 +33,7 @@ def pagination(movies):
         priv = '#'
         next = int(page) + 1
         display_priv = "display:none;"
+        justify_content = "justify-content-end"
     elif int(page) == last:
         next = '#'
         display_next = "display:none;"
@@ -40,7 +42,7 @@ def pagination(movies):
         priv = int(page) - 1
         next = int(page) + 1
     movies = movies[(int(page)-1) * params['no_of_movies']                    :int(page)*params['no_of_movies']]
-    return {"movies": movies, "display_next": display_next, "display_priv": display_priv, "priv": priv, "next": next}
+    return {"movies": movies, "display_next": display_next, "display_priv": display_priv, "priv": priv, "next": next, "justify_content": justify_content}
 
 
 class Movies(db.Model):
@@ -59,7 +61,24 @@ class Movies(db.Model):
     date = db.Column(db.String(20), nullable=False)
 # slug =  db.Column(db.String(20), nullable=False)
 
-
+class Highlinks(db.Model):
+    sno = db.Column(db.Integer, primary_key=True)
+    mega_link = db.Column(db.String(20), nullable=True)
+    gdrive_link = db.Column(db.String(20), nullable=True)
+    onedrive_link = db.Column(db.String(200), nullable=True)
+    mirror_link = db.Column(db.String(200), nullable=True)
+class Mediumlinks(db.Model):
+    sno = db.Column(db.Integer, primary_key=True)
+    mega_link = db.Column(db.String(20), nullable=True)
+    gdrive_link = db.Column(db.String(20), nullable=True)
+    onedrive_link = db.Column(db.String(200), nullable=True)
+    mirror_link = db.Column(db.String(200), nullable=True)
+class Lowlinks(db.Model):
+    sno = db.Column(db.Integer, primary_key=True)
+    mega_link = db.Column(db.String(20), nullable=True)
+    gdrive_link = db.Column(db.String(20), nullable=True)
+    onedrive_link = db.Column(db.String(200), nullable=True)
+    mirror_link = db.Column(db.String(200), nullable=True)
 @app.route("/")
 def home():
     # movies = Movies.query.all()
@@ -101,7 +120,7 @@ def home():
         comedy = pagination(comedy)
         first_row, second_row, third_row, fourth_row = [
             "Action", "Romance", "Horror", "Comedy"]
-    return render_template("index.html", latest=latest["movies"], comedy=comedy["movies"], horror=horror["movies"], action=action["movies"], romance=romance["movies"], first_row=first_row, second_row=second_row, third_row=third_row, fourth_row=fourth_row, next=latest["next"],priv=latest['priv'],display_next=latest["display_next"], display_priv=latest["display_priv"])
+    return render_template("index.html", latest=latest["movies"], comedy=comedy["movies"], horror=horror["movies"], action=action["movies"], romance=romance["movies"], first_row=first_row, second_row=second_row, third_row=third_row, fourth_row=fourth_row, next=latest["next"],priv=latest['priv'],display_next=latest["display_next"], display_priv=latest["display_priv"], justify_content=latest["justify_content"])
 
 
 @app.route("/movies/download/<string:slug>")
@@ -130,7 +149,7 @@ def movies_vertical(genre):
             movies = Movies.query.filter_by(film_industry=genre).order_by(
                 Movies.date.desc()).limit(7).all()
         movies = pagination(movies)
-        return render_template("movies_vertical.html", movies=movies["movies"], display_next=movies["display_next"], display_priv=movies["display_priv"], next=movies["next"], priv=movies["priv"], genre=genre)
+        return render_template("movies_vertical.html", movies=movies["movies"], display_next=movies["display_next"], display_priv=movies["display_priv"], next=movies["next"], priv=movies["priv"], justify_content=movies["justify_content"], genre=genre)
     # return render_template("movies_vertical.html", movies=movies)
 
 
@@ -140,32 +159,9 @@ def movies_vertical(genre):
 @app.route("/dashboard", methods=['GET',  'POST'])
 def dashboard():
     movies = Movies.query.order_by(Movies.date.desc()).all()
-    # [0:params['no_of_post']]
-    page = request.args.get('page')
-    last = math.ceil(len(movies)/int(params['no_of_movies']))
-    # print(last)
-    # print(page)
-    display_priv = '#'
-    display_next = '#'
-    if str(page).isnumeric() != True:
-        page = 1
-    elif int(page) > last or int(page) < 1:
-        page = 1
-    if int(page) == 1:
-        priv = '#'
-        next = int(page) + 1
-        display_priv = "display:none;"
-    elif int(page) == last:
-        next = '#'
-        display_next = "display:none;"
-        priv = int(page) - 1
-    else:
-        priv = int(page) - 1
-        next = int(page) + 1
-    movies = movies[(int(page)-1) * params['no_of_movies']
-                     :int(page)*params['no_of_movies']]
+    movies=pagination(movies)
     if ('user' in session and session['user'] == params['username']):
-        return render_template('dashboard.html', name='Admin Panel', movies=movies, priv=priv, next=next, display_next=display_next, display_priv=display_priv)
+        return render_template('dashboard.html', name='Admin Panel', movies=movies["movies"], priv=movies["priv"], next=movies["next"], display_next=movies["display_next"], display_priv=movies["display_priv"], justify_content=movies["justify_content"])
     if request.method == 'POST':
         username = request.form.get('uname')
         password = request.form.get('pass')
