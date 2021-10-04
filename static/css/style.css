@@ -43,6 +43,9 @@ nav{
 ::-webkit-scrollbar-thumb:hover{
   background: rgba(130, 14, 63, .9);
 }
+#dashboard_heading{
+    color: var(--onion);
+}
 #form-color{
     background-color: #ffffff;
     margin-right: 10px;

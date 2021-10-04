@@ -11,6 +11,8 @@
 	--indigo: #6610f2;
 	--purple: #6f42c1;
 	--pink: #e83e8c;
+	--onion: rgb(130, 14, 63);
+	--blackish: #585858;
 	--red: #dc3545;
 	--orange: #fd7e14;
 	--yellow: #ffc107;
@@ -2064,6 +2066,7 @@ pre code {
 	font-size: 1rem;
 	line-height: 1.5;
 	color: #495057;
+	font-family: inherit;
 	background-color: #fff;
 	background-clip: padding-box;
 	border: 1px solid #ced4da;
@@ -2594,8 +2597,8 @@ select.form-control-lg:not([size]):not([multiple]) {
 	}
 }
 
-.btn {
-	display: inline-block;
+/* .btn { */
+	/* display: inline-block;
 	font-weight: 400;
 	text-align: center;
 	white-space: nowrap;
@@ -2610,9 +2613,9 @@ select.form-control-lg:not([size]):not([multiple]) {
 	line-height: 1.5;
 	border-radius: .25rem;
 	transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out
-}
+} */
 
-.btn:focus,
+/* .btn:focus,
 .btn:hover {
 	text-decoration: none
 }
@@ -2633,11 +2636,11 @@ select.form-control-lg:not([size]):not([multiple]) {
 }
 
 .btn:not(:disabled):not(.disabled).active,
-.btn:not(:disabled):not(.disabled):active {
-	background-image: none
-}
+.btn:not(:disabled):not(.disabled):active { */
+	/* background-image: none
+} */
 
-a.btn.disabled,
+/* a.btn.disabled,
 fieldset:disabled a.btn {
 	pointer-events: none
 }
@@ -2646,20 +2649,23 @@ fieldset:disabled a.btn {
 	color: #fff;
 	background-color: #007bff;
 	border-color: #007bff
-}
+} */
 .btn-myweb{
 	position: relative;
     text-decoration: none;
     display: inline-block;
     vertical-align: middle;
 	color: #fff;
+	text-transform: uppercase;
     letter-spacing: .2rem;
     border: 1px solid rgb(130, 14, 63);
     background-color: rgb(130, 14, 63);
     /* background-image: linear-gradient(to bottom right,rgb(130, 14, 63), rgb(148, 90, 118)); */
     -webkit-box-shadow: 0px 1px 3px 0px #333333;
     -moz-box-shadow: 0px 1px 3px 0px #333333;
-    box-shadow: 0px 1px 3px 0px #333333;}
+    box-shadow: 0px 1px 3px 0px #333333;
+	padding: .375rem .75rem;
+}
 	.btn-myweb:hover, .btn-myweb:focus, .btn-myweb:active{
 		color: #fff;
 		background: rgba(130, 14, 63, .9);
@@ -9335,12 +9341,16 @@ header.masthead {
   header.masthead .site-heading .h1 {
 	font-size: 3rem;
   }
+  .subheading{
+	color: var(--blackish);
+  }
   header.masthead .page-heading .subheading,
   header.masthead .site-heading .subheading {
 	font-size: 1.5rem;
 	font-weight: 300;
 	line-height: 1.1;
 	display: block;
+	
 	margin-top: 0.625rem;
 	font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   }
