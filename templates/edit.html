@@ -63,16 +63,6 @@
                                 <label for="name">Youtube Trailer Link</label>
                             </div>
                             <div class="form-floating">
-                                <input class="form-control" id="slug" type="text" name="mega_link" placeholder="Slug"
-                                    value="{{movie.mega_link}}" required />
-                                <label for="name">Mega</label>
-                            </div>
-                            <div class="form-floating">
-                                <input class="form-control" id="slug" type="text" name="gdrive_link" placeholder="Slug"
-                                    value="{{movie.gdrive_link}}" required />
-                                <label for="name">Google Drive Link</label>
-                            </div>
-                            <div class="form-floating">
                                 <textarea class="form-control" id="message" name="description" placeholder="Content Here"
                                     required style="height: 12rem"
                                     data-sb-validations="required">{{movie.description}}</textarea>
@@ -80,6 +70,32 @@
                                 <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.
                                 </div>
                             </div>
+                            <!-- Download Links -->
+                                 {% for links in [highlink, mediumlink,lowlink] %}
+                            <h2 class='subheading'>{{links.quality}}</h2>
+                            <div class="form-floating">
+                                <input class="form-control" id="slug" type="text" name="{{links.name+ '_megalink' }}" placeholder="Slug"
+                                    value="{{links.mega_link}}" />
+                                <label for="name">Mega</label>
+                            </div>
+                            <div class="form-floating">
+                                <input class="form-control" id="slug" type="text" name="{{links.name + '_gdrive_link' }}" placeholder="Slug"
+                                    value="{{links.gdrive_link }}"/>
+                                <label for="name">Google Drive Link</label>
+                            </div>
+                            <div class="form-floating">
+                                <input class="form-control" id="slug" type="text" name="{{links.name + '_onedrive_link' }}" placeholder="Slug"
+                                    value="{{links.onedrive_link}}" />
+                                <label for="name">One Drive</label>
+                            </div>
+                            <div class="form-floating">
+                                <input class="form-control" id="slug" type="text" name="{{ links.name + 'mirror_link' }}" placeholder="Slug"
+                                    value="{{links.mirror_link }}" />
+                                <label for="name">Mirror</label>
+                            </div> 
+                       
+                {% endfor %}
+                            <!-- Ending Download Links -->
                             <br />
                             <!-- Submit success message-->
                             <!---->

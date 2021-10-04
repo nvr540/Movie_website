@@ -2656,7 +2656,7 @@ fieldset:disabled a.btn {
     display: inline-block;
     vertical-align: middle;
 	color: #fff;
-	text-transform: uppercase;
+	/* text-transform: uppercase; */
     letter-spacing: .2rem;
     border: 1px solid rgb(130, 14, 63);
     background-color: rgb(130, 14, 63);
@@ -2669,6 +2669,7 @@ fieldset:disabled a.btn {
 	.btn-myweb:hover, .btn-myweb:focus, .btn-myweb:active{
 		color: #fff;
 		background: rgba(130, 14, 63, .9);
+		outline: none;
 	}
 .btn-primary:hover {
 	color: #fff;

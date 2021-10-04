@@ -1,25 +1,22 @@
 {% extends 'layout.html' %}
 {% block body %}
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 <body>
     <!-- Navigation-->
 
     <!-- Page Header-->
     {%set fname = 'assets/img/' + img_name %}
-    <header class="masthead"
-        style="background-image: url('{{url_for('static', filename=fname)}}')"></header>
-        <div class="container position-relative px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-md-10 col-lg-8 col-xl-7">
-                    <div class="page-heading">
-                        <h1>Adding OR Editing a Blog</h1>
-                        <span class="subheading">Edit Or Add your movie</span>
-                    </div>
+    <header class="masthead" style="background-image: url('{{url_for('static', filename=fname)}}')"></header>
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="page-heading">
+                    <h1>Adding OR Editing a Blog</h1>
+                    <span class="subheading">Edit Or Add your movie</span>
                 </div>
             </div>
         </div>
+    </div>
     </header>
     <!-- Main Content-->
     <main class="mb-4">
@@ -31,7 +28,7 @@
                             <div class="file-field">
                                 <input type="file" id="myFile" name="files">
                                 <!-- <label for="myFile">Image Upload</label> -->
-                               <!-- <input type="button" style="display: none;" id="click"> -->
+                                <!-- <input type="button" style="display: none;" id="click"> -->
                             </div>
                         </form>
                         <form id="contactForm" action="/dashboard/{{sno}}" method="POST"
@@ -54,8 +51,8 @@
                                 <label for="name">Genre</label>
                             </div>
                             <div class="form-floating">
-                                <input class="form-control" id="slug" type="text" name="film_industry" placeholder="Slug"
-                                    value="{{movie.film_industry}}" required />
+                                <input class="form-control" id="slug" type="text" name="film_industry"
+                                    placeholder="Slug" value="{{movie.film_industry}}" required />
                                 <label for="name">Film Industry</label>
                             </div>
 
@@ -70,23 +67,54 @@
                                 <label for="name">Youtube Trailer Link</label>
                             </div>
                             <div class="form-floating">
-                                <input class="form-control" id="slug" type="text" name="mega_link" placeholder="Slug"
-                                    value="{{movie.mega_link}}" required />
-                                <label for="name">Mega</label>
-                            </div>
-                            <div class="form-floating">
-                                <input class="form-control" id="slug" type="text" name="gdrive_link" placeholder="Slug"
-                                    value="{{movie.gdrive_link}}" required />
-                                <label for="name">Google Drive Link</label>
-                            </div>
-                            <div class="form-floating">
-                                <textarea class="form-control" id="message" name="description" placeholder="Content Here"
-                                    required style="height: 12rem"
+                                <textarea class="form-control" id="message" name="description"
+                                    placeholder="Content Here" required style="height: 12rem"
                                     data-sb-validations="required">{{movie.content}}</textarea>
                                 <label for="message">Content</label>
                                 <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.
                                 </div>
                             </div>
+                            <!-- Download Links -->
+                            {% set array = [highlink, mediumlink,lowlink] %}
+                            {%set name= ''%}
+                            {% for links in array %}
+                               {% if loop.index == 1 %}
+                                   {%set name = 'highlink'%}
+                                   {%set quality = '1080p'%}
+                               {% elif loop.index == 2%}
+                                   {%set name = 'mediumlink'%}
+                                   {%set quality = '720p'%}
+                                {% else %}
+                                   {%set name = 'lowlink'%}
+                                   {%set quality = '480p'%}
+                               {% endif %}
+
+                            <h2 class='subheading'>{{quality}}</h2>
+                            <div class="form-floating">
+                                <input class="form-control" id="slug" type="text" name="{{name + '_megalink' }}"
+                                    placeholder="Slug" value="{{links.mega_link}}" />
+                                <label for="name">Mega</label>
+                            </div>
+                            <div class="form-floating">
+                                <input class="form-control" id="slug" type="text"
+                                    name="{{name + '_gdrive_link' }}" placeholder="Slug"
+                                    value="{{links.gdrive_link }}" />
+                                <label for="name">Google Drive Link</label>
+                            </div>
+                            <div class="form-floating">
+                                <input class="form-control" id="slug" type="text"
+                                    name="{{name + '_onedrive_link' }}" placeholder="Slug"
+                                    value="{{links.onedrive_link}}" />
+                                <label for="name">One Drive</label>
+                            </div>
+                            <div class="form-floating">
+                                <input class="form-control" id="slug" type="text"
+                                    name="{{name + '_mirror_link' }}" placeholder="Slug"
+                                    value="{{links.mirror_link }}" />
+                                <label for="name">Mirror</label>
+                            </div>
+                            {% endfor %}
+                            <!-- Ending Download Links -->
                             <br />
                             <!-- Submit success message-->
                             <!---->
@@ -125,7 +153,7 @@
             console.log('Upload')
         }, 2000);
         setTimeout(() => {
-            
+
             document.getElementById('contactForm').submit()
             console.log("Clicked")
         }, 1000);

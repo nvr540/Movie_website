@@ -67,18 +67,24 @@ class Highlinks(db.Model):
     gdrive_link = db.Column(db.String(20), nullable=True)
     onedrive_link = db.Column(db.String(200), nullable=True)
     mirror_link = db.Column(db.String(200), nullable=True)
+    name = 'highlink'
+    quality = "1080p"
 class Mediumlinks(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
     mega_link = db.Column(db.String(20), nullable=True)
     gdrive_link = db.Column(db.String(20), nullable=True)
     onedrive_link = db.Column(db.String(200), nullable=True)
     mirror_link = db.Column(db.String(200), nullable=True)
+    name = 'mediumlink'
+    quality = '720p'
 class Lowlinks(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
     mega_link = db.Column(db.String(20), nullable=True)
     gdrive_link = db.Column(db.String(20), nullable=True)
     onedrive_link = db.Column(db.String(200), nullable=True)
     mirror_link = db.Column(db.String(200), nullable=True)
+    name = 'lowlink'
+    quality='480p'
 @app.route("/")
 def home():
     # movies = Movies.query.all()
@@ -174,13 +180,16 @@ def dashboard():
 
 @app.route('/dashboard/<string:sno>', methods=['GET', 'POST'])
 def edit(sno):
-    movie = Movies.query.filter_by(sno=sno).first()
     if session['user'] == params['username'] and 'user' in session:
+        movie = Movies.query.filter_by(sno=sno).first()
+        highlink = Highlinks.query.filter_by(sno=sno).first()
+        lowlink = Lowlinks.query.filter_by(sno=sno).first()
+        mediumlink = Mediumlinks.query.filter_by(sno=sno).first()
         if request.method == 'GET':
             if sno == '0':
-                return render_template("Add.html", movie=movie, sno=sno, img_name='s-1.jpg')
+                return render_template("Add.html", movie=movie, sno=sno, img_name='s-1.jpg',highlink=highlink, lowlink=lowlink, mediumlink=mediumlink)
             else:
-                return render_template("edit.html", movie=movie, sno=sno, img_name=movie.img_name)
+                return render_template("edit.html", movie=movie, sno=sno, img_name=movie.img_name, highlink=highlink, lowlink=lowlink, mediumlink=mediumlink)
         elif request.method == 'POST':
             name = request.form.get('name')
             slug = request.form.get('slug')
@@ -193,12 +202,31 @@ def edit(sno):
             youtube_link = request.form.get("youtube_link")
             mega_link = request.form.get("mega_link")
             gdrive_link = request.form.get("gdrive_link")
-
+            mega_link_1080 = request.form.get('highlink_mega_link')
+            gdrive_link_1080 = request.form.get('highlink_gdrive_link')
+            onedrive_link_1080 = request.form.get('highlink_onedrive_link')
+            mirror_link_1080 = request.form.get('highlink_mirror_link')
+            mega_link_720 = request.form.get('mediumlink_mega_link')
+            gdrive_link_720 = request.form.get('mediumlink_gdrive_link')
+            onedrive_link_720 = request.form.get('mediumlink_onedrive_link')
+            mirror_link_720 = request.form.get('mediumlink_mirror_link')
+            mega_link_480 = request.form.get('lowlink_mega_link')
+            gdrive_link_480 = request.form.get('lowlink_gdrive_link')
+            onedrive_link_480 = request.form.get('lowlink_monedrive_link')
+            mirror_link_480 = request.form.get('lowlink_mirror_link')
             # we could use f.filename instead of img_name As we are taking input from the user for the file name I didn't save with the filename uploading I am saving with the filename the user giving
             if sno == '0':
                 post = Movies(name=name, slug=slug,
-                              description=description, genre=genre, film_industry=film_industry, date=datetime.datetime.now(), img_name=image_name, youtube_link=youtube_link, mega_link=mega_link, gdrive_link=gdrive_link)
+                              description=description, genre=genre, film_industry=film_industry, date=datetime.datetime.now(), img_name=image_name, youtube_link=youtube_link)
                 db.session.add(post)
+                db.session.commit()
+                sno = Movies.query.order_by(Movies.date.desc()).first().sno
+                link_1080 = Highlinks(sno=sno,mega_link=mega_link_1080, gdrive_link=gdrive_link_1080, onedrive_link=onedrive_link_1080,mirror_link=mirror_link_1080)
+                link_720 = Mediumlinks(sno=sno,mega_link=mega_link_720, gdrive_link=gdrive_link_720, onedrive_link=onedrive_link_720,mirror_link=mirror_link_720)
+                link_480 = Lowlinks(sno=sno,mega_link=mega_link_480, gdrive_link=gdrive_link_480, onedrive_link=onedrive_link_480,mirror_link=mirror_link_480)
+                db.session.add(link_1080)
+                db.session.add(link_720)
+                db.session.add(link_480)
                 db.session.commit()
             else:
                 movie = Movies.query.filter_by(sno=sno).first()
