@@ -4,6 +4,6 @@
         "username": "admin",
         "password": "password",
         "path_upload":"D:\\Documents\\Movie Website\\static\\assets\\img",
-        "no_of_movies": 2
+        "no_of_movies": 10
      }
  }

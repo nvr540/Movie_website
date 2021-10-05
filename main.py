@@ -51,6 +51,9 @@ class Movies(db.Model):
     slug = db.Column(db.String(20), nullable=False)
     description = db.Column(db.String(200), nullable=False)
     genre = db.Column(db.String(200), nullable=False)
+    director = db.Column(db.String(200), nullable=False)
+    cast = db.Column(db.String(200), nullable=False)
+    lang = db.Column(db.String(200), nullable=False)
     img_name = db.Column(db.String(20), nullable=False)
     film_industry = db.Column(db.String(20), nullable=False)
     # mega_link = db.Column(db.String(20), nullable=False)
@@ -132,7 +135,10 @@ def home():
 @app.route("/movies/download/<string:slug>")
 def movie_download(slug):
     movie = Movies.query.filter_by(slug=slug).first()
-    return render_template("test.html", movie=movie)
+    highlink = Highlinks.query.filter_by(sno=movie.sno).first()
+    mediumlink = Mediumlinks.query.filter_by(sno=movie.sno).first()
+    lowlink = Lowlinks.query.filter_by(sno=movie.sno).first()
+    return render_template("test.html", movie=movie, highlink=highlink, mediumlink=mediumlink,lowlink=lowlink)
 
 
 """Vertically movies display"""
@@ -195,13 +201,15 @@ def edit(sno):
             slug = request.form.get('slug').replace(' ','_')
             description = request.form.get('description')
             genre = request.form.get('genre').lower()
+            director = request.form.get('director').lower()
+            cast = request.form.get('cast').lower()
+            lang = request.form.get('lang').lower()
+            
             film_industry = request.form.get('film_industry').lower()
-            global image_name
-            # This global variable will go to /uploader
+            global image_name  # This global variable will go to /uploader
             image_name = request.form.get("img_name")
             youtube_link = request.form.get("youtube_link")
-            mega_link = request.form.get("mega_link")
-            gdrive_link = request.form.get("gdrive_link")
+            #Download Links
             mega_link_1080 = request.form.get('highlink_mega_link')
             gdrive_link_1080 = request.form.get('highlink_gdrive_link')
             onedrive_link_1080 = request.form.get('highlink_onedrive_link')
@@ -217,7 +225,7 @@ def edit(sno):
             # we could use f.filename instead of img_name As we are taking input from the user for the file name I didn't save with the filename uploading I am saving with the filename the user giving
             if sno == '0':
                 post = Movies(name=name, slug=slug,
-                              description=description, genre=genre, film_industry=film_industry, date=datetime.datetime.now(), img_name=image_name, youtube_link=youtube_link)
+                              description=description, genre=genre,director=director,cast=cast,lang=lang, film_industry=film_industry, date=datetime.datetime.now(), img_name=image_name, youtube_link=youtube_link)
                 db.session.add(post)
                 db.session.commit()
                 sno = Movies.query.order_by(Movies.date.desc()).first().sno
@@ -238,11 +246,14 @@ def edit(sno):
                 movie.slug = slug
                 movie.description = description
                 movie.genre = genre
+                movie.director = director
+                movie.cast = cast
+                movie.lang = lang
                 movie.film_industry = film_industry
                 movie.img_name = image_name
-                movie.gdrive_link = gdrive_link
+                # movie.gdrive_link = gdrive_link
                 movie.youtube_link = youtube_link
-                movie.mega_link = mega_link
+                # movie.mega_link = mega_link
                 highlink.mega_link = mega_link_1080
                 highlink.gdrive_link = gdrive_link_1080
                 highlink.onedrive_link = onedrive_link_1080
@@ -276,6 +287,7 @@ def seo_links(sno):
             meta_keywords = movies.meta_keywords
         return render_template("seo_edit.html", meta_description=meta_description, meta_keywords=meta_keywords, img_name=img_name, sno=sno)
     elif request.method == "POST":
+        #It's adding the seo after the row is made so It is using commit(), By default it will be null in the database
         meta_description = request.form.get('meta_description')
         meta_keywords = request.form.get('meta_keywords')
         movies.meta_description = meta_description

@@ -10,11 +10,11 @@
       <h2 class="title">{{movie.name}}</h2>
       <p>
         <!-- {{movie.description.split('\n')[0]}} -->
-        <strong>Director:</strong> Madarchud<br>
-        <strong>Language:</strong> English<br>
-        <strong>Film Industry:</strong> {{movie .film_industry}}<br>
+        <strong>Director:</strong> {{movie.director}}<br>
+        <strong>Language:</strong> {{movie.lang}}<br>
+        <strong>Film Industry:</strong> {{movie.film_industry}}<br>
         <strong>Genres:</strong> {{movie.genre}}<br>
-        <strong>Cast:</strong> Sharukh khan, kriti kharbanda<br>
+        <strong>Cast:</strong> {{movie.cast}}<br>
       </p>
     </div>
   </div>
@@ -36,12 +36,27 @@
 </div>
 <div class="container2" style="flex-direction: column;">
   <h2 style="color: var(--common)">Download Links</h2>
+  {% set array = [highlink, mediumlink,lowlink] %}
+  {% for links in array %}
+  <h3 class="quality_name">Download {{links.quality}}</h3>
   <div class="download_links">
-    <button class="buttn">Mega</button>
-    <button class="buttn">Gdrive</button>
-    <button class="buttn">OneDrive</button>
-    <button class="buttn">Mirror</button>
+    <a href="#" onclick="delayUrlLoad('{{links.mega_link}}', 500);return false" target="blank"><button class="buttn">Mega</button></a>
+    <a href="#" onclick="delayUrlLoad('{{links.gdrive_link}}', 500);return false" target="blank"><button class="buttn">Gdrive</button></a>
+    <a href="#" onclick="delayUrlLoad('{{links.onedrive_link}}', 500);return false" target="blank"><button class="buttn">Onedrive</button></a>
+    <a href="#" onclick="delayUrlLoad('{{links.mirror_link}}', 500);return false" target="blank"><button class="buttn">Mirror</button></a>
   </div>
+  {% endfor %}
+ 
 </div>
-
+<script>
+  function delayUrlLoad(url, mils)
+{
+    setTimeout(function() {
+        // window.location.href = url;
+        window.open(
+  url,'_blank' // <- This is what makes it open in a new window.
+)
+    }, mils)
+}
+</script>
 {% endblock %}
