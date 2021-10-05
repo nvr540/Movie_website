@@ -144,7 +144,7 @@ def movies_vertical(genre):
     if genre.lower() == "others":
         movies = Movies.query.filter(Movies.film_industry != 'bollywood').filter(
             Movies.film_industry != 'hollywood').filter(Movies.film_industry != 'anime').order_by(Movies.date.desc()).all()
-        movie = pagination(movies)
+        movies = pagination(movies)
         # print(movie)
     else:
         # genre = genre.lower()
@@ -155,7 +155,7 @@ def movies_vertical(genre):
             movies = Movies.query.filter_by(film_industry=genre).order_by(
                 Movies.date.desc()).limit(7).all()
         movies = pagination(movies)
-        return render_template("movies_vertical.html", movies=movies["movies"], display_next=movies["display_next"], display_priv=movies["display_priv"], next=movies["next"], priv=movies["priv"], justify_content=movies["justify_content"], genre=genre)
+    return render_template("movies_vertical.html", movies=movies["movies"], display_next=movies["display_next"], display_priv=movies["display_priv"], next=movies["next"], priv=movies["priv"], justify_content=movies["justify_content"], genre=genre)
     # return render_template("movies_vertical.html", movies=movies)
 
 
@@ -192,7 +192,7 @@ def edit(sno):
                 return render_template("edit.html", movie=movie, sno=sno, img_name=movie.img_name, highlink=highlink, lowlink=lowlink, mediumlink=mediumlink)
         elif request.method == 'POST':
             name = request.form.get('name')
-            slug = request.form.get('slug')
+            slug = request.form.get('slug').replace(' ','_')
             description = request.form.get('description')
             genre = request.form.get('genre').lower()
             film_industry = request.form.get('film_industry').lower()
@@ -212,7 +212,7 @@ def edit(sno):
             mirror_link_720 = request.form.get('mediumlink_mirror_link')
             mega_link_480 = request.form.get('lowlink_mega_link')
             gdrive_link_480 = request.form.get('lowlink_gdrive_link')
-            onedrive_link_480 = request.form.get('lowlink_monedrive_link')
+            onedrive_link_480 = request.form.get('lowlink_onedrive_link')
             mirror_link_480 = request.form.get('lowlink_mirror_link')
             # we could use f.filename instead of img_name As we are taking input from the user for the file name I didn't save with the filename uploading I am saving with the filename the user giving
             if sno == '0':
@@ -230,6 +230,10 @@ def edit(sno):
                 db.session.commit()
             else:
                 movie = Movies.query.filter_by(sno=sno).first()
+                highlink = Highlinks.query.filter_by(sno=sno).first()
+                mediumlink = Mediumlinks.query.filter_by(sno=sno).first()
+                lowlink = Lowlinks.query.filter_by(sno=sno).first()
+                """Adding to the database"""
                 movie.name = name
                 movie.slug = slug
                 movie.description = description
@@ -239,6 +243,18 @@ def edit(sno):
                 movie.gdrive_link = gdrive_link
                 movie.youtube_link = youtube_link
                 movie.mega_link = mega_link
+                highlink.mega_link = mega_link_1080
+                highlink.gdrive_link = gdrive_link_1080
+                highlink.onedrive_link = onedrive_link_1080
+                highlink.mirror_link = mirror_link_1080
+                mediumlink.mega_link = mega_link_720
+                mediumlink.gdrive_link = gdrive_link_720
+                mediumlink.onedrive_link = onedrive_link_720
+                mediumlink.mirror_link = mirror_link_720
+                lowlink.mega_link = mega_link_480
+                lowlink.gdrive_link = gdrive_link_480
+                lowlink.onedrive_link = onedrive_link_480
+                lowlink.mirror_link = mirror_link_480
                 db.session.commit()
             time.sleep(2)
             return redirect('/dashboard')
