@@ -345,6 +345,7 @@ def deleter(sno):
 def login():
     return render_template("login.html")
 
-
-app.run(debug=True)
+if __name__ == '__main__':  
+    app.run(debug=True)
+    """Still have to add if else in test.html have to add the meta description and title in page"""
 """Having some issue in uploading photo and the name is not saving to database either from uploader/sno"""
