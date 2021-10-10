@@ -1,4 +1,7 @@
 {% extends 'layout.html' %}
+{% block title %}
+  Download {{movie.name}}
+{% endblock title %}
 {% block body %}
 {% set fname = 'assets/img/' + movie.img_name %}
 <div class="container2">
@@ -38,13 +41,25 @@
   <h2 style="color: var(--common)">Download Links</h2>
   {% set array = [highlink, mediumlink,lowlink] %}
   {% for links in array %}
+  {% if (links.mega_link == "" or links.mega_link == 'None') and (links.gdrive_link =='') and (links.onedrive_link=='') and (links.mirror_link=='')%}
+    
+  {% else %}
   <h3 class="quality_name">Download {{links.quality}}</h3>
   <div class="download_links">
-    <a href="#" onclick="delayUrlLoad('{{links.mega_link}}', 500);return false" target="blank"><button class="buttn">Mega</button></a>
+    {% if (links.mega_link != '') %}
+      <a href="#" onclick="delayUrlLoad('{{links.mega_link}}', 500);return false" target="blank"><button class="buttn">Mega</button></a>
+    {% endif %}
+    {% if (links.gdrive_link != '') %}
     <a href="#" onclick="delayUrlLoad('{{links.gdrive_link}}', 500);return false" target="blank"><button class="buttn">Gdrive</button></a>
+    {% endif %}
+    {% if (links.onedrive_link != '') %}
     <a href="#" onclick="delayUrlLoad('{{links.onedrive_link}}', 500);return false" target="blank"><button class="buttn">Onedrive</button></a>
+    {% endif %}
+    {% if (links.mirror_link != '') %}
     <a href="#" onclick="delayUrlLoad('{{links.mirror_link}}', 500);return false" target="blank"><button class="buttn">Mirror</button></a>
+    {% endif %}
   </div>
+  {% endif %}
   {% endfor %}
  
 </div>

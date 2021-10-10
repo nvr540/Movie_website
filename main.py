@@ -198,7 +198,7 @@ def edit(sno):
                 return render_template("edit.html", movie=movie, sno=sno, img_name=movie.img_name, highlink=highlink, lowlink=lowlink, mediumlink=mediumlink)
         elif request.method == 'POST':
             name = request.form.get('name')
-            slug = request.form.get('slug').replace(' ','_')
+            slug = request.form.get('slug').replace(' ','_').lower()
             description = request.form.get('description')
             genre = request.form.get('genre').lower()
             director = request.form.get('director').lower()
@@ -334,8 +334,11 @@ def deleter(sno):
     if session['user'] == params['username'] and 'user' in session:
         post = Movies.query.filter_by(sno=sno).first()
         image_name = post.img_name
-        os.remove(os.path.join(params['path_upload'],
-                                secure_filename(image_name)))
+        try:
+            os.remove(os.path.join(params['path_upload'],
+                               secure_filename(image_name)))
+        except:
+            pass
         db.session.delete(post)
         db.session.commit()
     return redirect('/dashboard')

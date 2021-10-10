@@ -1,4 +1,7 @@
 {% extends 'layout.html' %}
+{% block title %}
+    Add Movie
+{% endblock title %}
 {% block body %}
 
 <body>
@@ -26,7 +29,7 @@
                     <div class="my-5">
                         <form action="/uploader" method="POST" enctype="multipart/form-data" id='fileUpload'>
                             <div class="file-field">
-                                <input type="file" id="myFile" name="files">
+                                <input type="file" id="myFile" name="files" required>
                                 <!-- <label for="myFile">Image Upload</label> -->
                                 <!-- <input type="button" style="display: none;" id="click"> -->
                             </div>
@@ -37,43 +40,42 @@
 
                             <div class="form-floating">
                                 <input class="form-control" id="title" type="text" name="name" placeholder="Name"
-                                    value="{{movie.name}}" required />
+                                   required />
                                 <label for="name">Name</label>
                             </div>
                             <div class="form-floating">
                                 <input class="form-control" id="slug" type="text" name="slug" placeholder="Slug"
-                                    value="{{movie.slug}}" required />
+                             required />
                                 <label for="name">Slug</label>
                             </div>
                             <div class="form-floating">
                                 <input class="form-control" id="slug" type="text" name="genre" placeholder="Slug"
-                                    value="{{movie.genre}}" required />
+                                    required />
                                 <label for="name">Genre</label>
                             </div>
                             <div class="form-floating">
                                 <input class="form-control" id="slug" type="text" name="director" placeholder="Slug"
-                                    value="{{movie.director}}" required />
+                                    required />
                                 <label for="name">Director</label>
                             </div>
                             <div class="form-floating">
                                 <input class="form-control" id="slug" type="text" name="cast" placeholder="Slug"
-                                    value="{{movie.cast}}" required />
+                                    required />
                                 <label for="name">Cast</label>
                             </div>
                             <div class="form-floating">
                                 <input class="form-control" id="slug" type="text" name="lang" placeholder="Slug"
-                                    value="{{movie.lang}}" required />
+                                    required />
                                 <label for="name">Language</label>
                             </div>
                             <div class="form-floating">
                                 <input class="form-control" id="slug" type="text" name="film_industry"
-                                    placeholder="Slug" value="{{movie.film_industry}}" required />
+                                    placeholder="Slug" required />
                                 <label for="name">Film Industry</label>
                             </div>
 
                             <div class="form-floating">
-                                <input class="form-control" id="slug" type="text" name="img_name" placeholder="Slug"
-                                    value="{{movie.img_name}}" required />
+                                <input class="form-control" id="slug" type="text" name="img_name" placeholder="Slug" required />
                                 <label for="name">Image Name</label>
                             </div>
                             <div class="form-floating">
@@ -107,25 +109,25 @@
                             <h2 class='subheading'>{{quality}}</h2>
                             <div class="form-floating">
                                 <input class="form-control" id="slug" type="text" name="{{name + '_mega_link' }}"
-                                    placeholder="Slug" value="{{links.mega_link}}" />
+                                    placeholder="Slug"" />
                                 <label for="name">Mega</label>
                             </div>
                             <div class="form-floating">
                                 <input class="form-control" id="slug" type="text"
                                     name="{{name + '_gdrive_link' }}" placeholder="Slug"
-                                    value="{{links.gdrive_link }}" />
+                                     />
                                 <label for="name">Google Drive Link</label>
                             </div>
                             <div class="form-floating">
                                 <input class="form-control" id="slug" type="text"
                                     name="{{name + '_onedrive_link' }}" placeholder="Slug"
-                                    value="{{links.onedrive_link}}" />
+                                    />
                                 <label for="name">One Drive</label>
                             </div>
                             <div class="form-floating">
                                 <input class="form-control" id="slug" type="text"
                                     name="{{name + '_mirror_link' }}" placeholder="Slug"
-                                    value="{{links.mirror_link }}" />
+                                    />
                                 <label for="name">Mirror</label>
                             </div>
                             {% endfor %}
@@ -153,7 +155,7 @@
                             </div>
                             <!-- Submit Button-->
                             <!-- <button class="btn btn-primary text-uppercase" id="submitButton" onclick="onClick()">movie</button> -->
-                            <input class="btn btn-myweb" type="button" onclick="onClick()" value="Add">
+                            <input class="btn buttn" type="button" style="background: var(--onion);border: none" onclick="onClick()" value="Add">
                         </form>
                     </div>
                 </div>
@@ -172,6 +174,7 @@
             document.getElementById('contactForm').submit()
             console.log("Clicked")
         }, 1000);
+        
     }
 </script>
 {% endblock %}
