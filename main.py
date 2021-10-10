@@ -138,7 +138,7 @@ def movie_download(slug):
     highlink = Highlinks.query.filter_by(sno=movie.sno).first()
     mediumlink = Mediumlinks.query.filter_by(sno=movie.sno).first()
     lowlink = Lowlinks.query.filter_by(sno=movie.sno).first()
-    return render_template("test.html", movie=movie, highlink=highlink, mediumlink=mediumlink,lowlink=lowlink)
+    return render_template("download_movies.html", movie=movie, highlink=highlink, mediumlink=mediumlink,lowlink=lowlink)
 
 
 """Vertically movies display"""

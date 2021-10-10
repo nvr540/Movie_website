@@ -2,6 +2,12 @@
 {% block title %}
   Download {{movie.name}}
 {% endblock title %}
+{% block meta_description %}
+  {{movie.meta_description}}                                              
+{% endblock meta_description %}
+{% block meta_keywords %}
+  {{movie.meta_keywords}}                                              
+{% endblock meta_keywords %}
 {% block body %}
 {% set fname = 'assets/img/' + movie.img_name %}
 <div class="container2">
