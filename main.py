@@ -1,18 +1,22 @@
 from flask import Flask, render_template, redirect, url_for, request, session
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import query
 from werkzeug.utils import secure_filename
 import json
 import datetime
 import time
 import os
 import math
+from flask_msearch import Search
 app = Flask(__name__)
 app.secret_key = 'super secret key'
 params = json.load(open('config.json'))['params']
 # print(params)
 app.config['SQLALCHEMY_DATABASE_URI'] = params['data_base_uri']
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
-
+search = Search(db=db)
+search.init_app(app)
 
 def pagination(movies):
     """It will return the pagination movie number in any page that I want"""
@@ -46,6 +50,8 @@ def pagination(movies):
 
 
 class Movies(db.Model):
+    __tablename__ = 'movies'
+    __searchable__ = ['name', 'description','cast']
     sno = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20), nullable=False)
     slug = db.Column(db.String(20), nullable=False)
@@ -348,6 +354,12 @@ def deleter(sno):
 def login():
     return render_template("login.html")
 
+#Searcher 
+@app.route('/search')
+def search():
+    query = request.args.get('query')
+    movies = Movies.query.msearch(query,fields=['name', 'description','cast']).order_by(Movies.date.desc()).all()
+    return render_template('search.html', movies=movies)
 if __name__ == '__main__':  
     app.run(debug=True)
     """Still have to add if else in test.html have to add the meta description and title in page"""

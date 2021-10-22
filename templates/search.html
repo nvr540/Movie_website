@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+{% block title %}
+    Search Result for: {{query}}
+{% endblock title %}
+{% block body %}
+<!--movies---------------------------->
+<div class="movies-heading">
+    <h2 style="text-align: center; background-color: rgba(130, 14, 63);color: #fff;border-radius: 20px;">Search Result for: {{query}}</h2>
+</div>
+<section id="movies-list">
+    <!--box-1------------------------>
+    {%for movie in movies%}
+    <div class="movies-box">
+        <!--img------------>
+        {%set fname = 'assets/img/' + movie.img_name %}
+
+        <div class="movies-img">
+            <!-- <div class="quality">HDRip</div> -->
+            <img src="{{url_for('static',filename=fname)}}">
+        </div>
+        <!--text--------->
+        <a href="/movies/download/{{movie.slug}}">
+            <h3>{{movie.name}}</h3>
+        </a>
+    </div>
+    {%endfor%}
+
+
+</section>
+<div class="bottom d-flex {{justify_content}} mb-4">
+    <a style="{{display_priv}}" class="previous-btn btn btn-myweb text-uppercase" href="?page={{priv}}">&larr; Previous</a>
+    <a style="{{display_next}}"class="next-btn btn-myweb text-uppercase" href="?page={{next}}">Next →</a>
+</div>
+
+{% endblock %}
