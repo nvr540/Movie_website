@@ -13,13 +13,13 @@
     <div class="movies-box">
         <!--img------------>
         {%set fname = 'assets/img/' + movie.img_name %}
-
+        <a href="/movies/download/{{movie.slug}}">
         <div class="movies-img">
             <!-- <div class="quality">HDRip</div> -->
             <img src="{{url_for('static',filename=fname)}}">
         </div>
         <!--text--------->
-        <a href="/movies/download/{{movie.slug}}">
+        
             <h3>{{movie.name}}</h3>
         </a>
     </div>

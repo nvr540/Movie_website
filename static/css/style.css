@@ -245,7 +245,7 @@ nav .menu li a:hover{
     margin-bottom: 20px;
     border-radius: 5px;
     overflow: hidden;
-    border-top: 3px solid #292929;
+    /* border-top: 3px solid #292929; */
 }
 .movies-img{
     width:100%;
@@ -257,19 +257,19 @@ nav .menu li a:hover{
     height: 100%;
     object-fit: cover;
 }
-.movies-box a{
+.movies-box a h3{
     text-align:center;
     display: block;
     font-weight: 600;
     display: -webkit-box;
-    max-width: 80%;
-    -webkit-line-clamp: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    max-width: 100%;
+    /* -webkit-line-clamp: vertical; */
+    /* overflow: hidden;x */
+    /* text-overflow: ellipsis; */
     color: #3a3a3a;
     font-style: oblique;
     /* background-color: black; */
-    margin: 10px;
+    /* margin: 10px; */
 }
 .movies-box:hover{
     transform: translateY(-10px);
