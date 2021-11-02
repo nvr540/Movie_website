@@ -103,6 +103,15 @@
   </div>
 </nav>
 {% block body %}{% endblock %}
+<script>
+  function pagination(p){
+      currentPage = window.location.search
+      url = new URLSearchParams(currentPage)
+      page = url.get('page')
+      a = "?page="+ p + "&" + window.location.search.replace("page=" + page, '').replace("?", "").replace("&",'')
+      window.location.href=a
+  }
+  </script>
 </body>
 
 <!--footer------------------>

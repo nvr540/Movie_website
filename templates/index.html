@@ -136,8 +136,8 @@
     </section>
         <!--btns--------------->
         <div class="bottom d-flex {{justify_content}} mb-4">
-            <a style="{{display_priv}}" class="previous-btn btn btn-myweb text-uppercase" href="?page={{priv}}">&larr; Previous</a>
-            <a style="{{display_next}}"class="next-btn btn-myweb text-uppercase" href="?page={{next}}">Next →</a>
+            <button style="{{display_priv}}" class="previous-btn btn btn-myweb text-uppercase" onclick="pagination({{priv}})">&larr; Previous</button>
+            <button style="{{display_next}}" class="next-btn btn-myweb text-uppercase" onclick="pagination({{next}})">Next →</button>
         </div>
     <script>
         $(document).ready(function () {
