@@ -116,8 +116,8 @@ nav .menu li a:hover{
     background-color: #ffffff;
 }
 .showcase-box{
-    width:430px;
-    height: 250px;
+    width:250px;
+    height: 380px;
     box-shadow: 5px 15px 30px rgba(0,0,0,0.3);
     border-radius: 20px;
     margin:0px 20px 10px 20px;
@@ -163,6 +163,7 @@ nav .menu li a:hover{
     border-radius: 10px;
     overflow:hidden;
     width:200px;
+    height: 380px;
     background-color: #ffffff;
 }
 .latest-b-img{
@@ -177,6 +178,7 @@ nav .menu li a:hover{
 .latest-b-text strong{
     color:#3a3a3a;
     margin: 0px;
+    font-size: .85rem;
 }
 .latest-b-text{
     width:100%;
@@ -225,17 +227,19 @@ nav .menu li a:hover{
     border: 1px solid rgba(0,0,0,0.06);
     font-size: 1.7rem;
     letter-spacing: 1px;
-    text-transform: uppercase;
+    text-transform: capitalize;
     width: 100%;
 }
 .movies-heading{
     display: flex;
     margin:0px 2%;
+    margin-bottom: 20px;
 }
 .movies-box{
-    width:300px;
+    width:200px;
+    height: 380px;
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
     flex-direction: column;
     box-shadow: 2px 2px 30px rgba(0,0,0,0.2);
@@ -245,11 +249,11 @@ nav .menu li a:hover{
     margin-bottom: 20px;
     border-radius: 5px;
     overflow: hidden;
-    border-top: 3px solid #292929;
+    /* border-top: 3px solid #292929; */
 }
 .movies-img{
     width:100%;
-    height: 400px;
+    height: 300px;
     position: relative;
 }
 .movies-img img{
@@ -257,10 +261,11 @@ nav .menu li a:hover{
     height: 100%;
     object-fit: cover;
 }
-.movies-box a{
-    text-align:center;
+.movies-box h3{
+    text-align: justify;
     display: block;
     font-weight: 600;
+    font-size: .85rem;
     display: -webkit-box;
     max-width: 80%;
     -webkit-line-clamp: vertical;
@@ -268,8 +273,10 @@ nav .menu li a:hover{
     text-overflow: ellipsis;
     color: #3a3a3a;
     font-style: oblique;
+    margin-top: .5rem;
     /* background-color: black; */
-    margin: 10px;
+    /* margin: 10px; */
+
 }
 .movies-box:hover{
     transform: translateY(-10px);
@@ -440,7 +447,11 @@ nav .menu-btn{
 }
 @media(max-width:440px){
     .movies-box a,.movies-box{
-        width: 100%;
+        width: 240px;
+        height: 400px;
+    }
+    .movies-img{
+        height: 350px;
     }
     .movies-box{
         flex-direction: column;

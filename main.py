@@ -359,7 +359,8 @@ def login():
 def search():
     query = request.args.get('query')
     movies = Movies.query.msearch(query,fields=['name', 'description','cast']).order_by(Movies.date.desc()).all()
-    return render_template('search.html', movies=movies)
+    movies = pagination(movies)
+    return render_template('search.html', movies=movies["movies"], display_next=movies["display_next"], display_priv=movies["display_priv"], next=movies["next"], priv=movies["priv"], justify_content=movies["justify_content"], genre=query )
 if __name__ == '__main__':  
     app.run(debug=True)
     """Still have to add if else in test.html have to add the meta description and title in page"""
