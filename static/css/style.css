@@ -136,6 +136,7 @@ nav .menu li a:hover{
     text-transform: uppercase;
     font-size: 1.2rem;
     color: #1a1a1a;
+    margin-top: -50px;
 }
 .cs-hidden{
     overflow: visible !important;
