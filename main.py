@@ -212,7 +212,7 @@ def edit(sno):
         mediumlink = Mediumlinks.query.filter_by(sno=sno).first()
         if request.method == 'GET':
             if sno == '0':
-                return render_template("Add.html", movie=movie, sno=sno, img_name='s-1.jpg', highlink=highlink, lowlink=lowlink, mediumlink=mediumlink)
+                return render_template("add.html", movie=movie, sno=sno, img_name='s-1.jpg', highlink=highlink, lowlink=lowlink, mediumlink=mediumlink)
             else:
                 return render_template("edit.html", movie=movie, sno=sno, img_name=movie.img_name, highlink=highlink, lowlink=lowlink, mediumlink=mediumlink)
         elif request.method == 'POST':
