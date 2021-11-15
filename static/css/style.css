@@ -261,13 +261,10 @@ nav .menu li a:hover{
     height: 100%;
     object-fit: cover;
 }
-<<<<<<< HEAD
-.movies-box a h3{
-    text-align:center;
-=======
+
 .movies-box h3{
     text-align: justify;
->>>>>>> test1
+
     display: block;
     font-weight: 600;
     font-size: .85rem;
@@ -281,10 +278,7 @@ nav .menu li a:hover{
     margin-top: .5rem;
     /* background-color: black; */
     /* margin: 10px; */
-<<<<<<< HEAD
-=======
 
->>>>>>> test1
 }
 .movies-box:hover{
     transform: translateY(-10px);
@@ -430,8 +424,8 @@ nav .menu-btn{
 }
 @media(max-width:680px){
     .showcase-box{
-        max-width: 300px;
-        height: 180px;
+        max-width: 180px;
+        height: 280px;
         margin: 10px;
     }
     .latest-box{
