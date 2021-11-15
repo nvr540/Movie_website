@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, request, session
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import query
+from sqlalchemy.orm import defaultload, query
 from werkzeug.utils import secure_filename
 import json
 import datetime
@@ -46,14 +46,15 @@ def pagination(movies):
     else:
         priv = int(page) - 1
         next = int(page) + 1
-    movies = movies[(int(page)-1) * params['no_of_movies']:int(page)*params['no_of_movies']]
+    movies = movies[(int(page)-1) * params['no_of_movies']
+                     :int(page)*params['no_of_movies']]
     return {"movies": movies, "display_next": display_next, "display_priv": display_priv, "priv": priv, "next": next, "justify_content": justify_content, "page": page}
 
 
 class Movies(db.Model):
     __tablename__ = 'movies'
     __searchable__ = ['name', 'description', 'cast']
-    sno = db.Column(db.Integer, primary_key=True)
+    sno = db.Column(db.Integer, autoincrement=True,primary_key=True)
     name = db.Column(db.String(20), nullable=False)
     slug = db.Column(db.String(20), nullable=False)
     description = db.Column(db.String(200), nullable=False)
@@ -66,8 +67,8 @@ class Movies(db.Model):
     # mega_link = db.Column(db.String(20), nullable=False)
     youtube_link = db.Column(db.String(20), nullable=False)
     # gdrive_link = db.Column(db.String(20), nullable=False)
-    meta_description = db.Column(db.String(20), nullable=False)
-    meta_keywords = db.Column(db.String(20), nullable=False)
+    meta_description = db.Column(db.String(20), nullable=True)
+    meta_keywords = db.Column(db.String(20), nullable=True)
     date = db.Column(db.String(20), nullable=False)
 # slug =  db.Column(db.String(20), nullable=False)
 
@@ -245,6 +246,12 @@ def edit(sno):
             if sno == '0':
                 post = Movies(name=name, slug=slug,
                               description=description, genre=genre, director=director, cast=cast, lang=lang, film_industry=film_industry, date=datetime.datetime.now(), img_name=image_name, youtube_link=youtube_link)
+                try:
+                    f = request.files['files']
+                    f.save(os.path.join(params['path_upload'],
+                                secure_filename(image_name)))
+                except:
+                    pass      
                 db.session.add(post)
                 db.session.commit()
                 sno = Movies.query.order_by(Movies.date.desc()).first().sno
