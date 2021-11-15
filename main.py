@@ -1,6 +1,5 @@
 from flask import Flask, render_template, redirect, url_for, request, session
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import query
 from werkzeug.utils import secure_filename
 import json
 import datetime
@@ -18,6 +17,7 @@ db = SQLAlchemy(app)
 search = Search(db=db)
 search.init_app(app)
 
+
 def pagination(movies):
     """It will return the pagination movie number in any page that I want"""
     page = request.args.get('page')
@@ -31,8 +31,8 @@ def pagination(movies):
         page = 1
     elif int(page) > last:
         page = last
-    elif  int(page) < 1:
-        page=1
+    elif int(page) < 1:
+        page = 1
     if int(page) == 1:
         priv = '#'
         next = int(page) + 1
@@ -45,14 +45,15 @@ def pagination(movies):
     else:
         priv = int(page) - 1
         next = int(page) + 1
-    movies = movies[(int(page)-1) * params['no_of_movies']                    :int(page)*params['no_of_movies']]
-    return {"movies": movies, "display_next": display_next, "display_priv": display_priv, "priv": priv, "next": next, "justify_content": justify_content}
+    movies = movies[(int(page)-1) * params['no_of_movies']
+                     :int(page)*params['no_of_movies']]
+    return {"movies": movies, "display_next": display_next, "display_priv": display_priv, "priv": priv, "next": next, "justify_content": justify_content, "page": page}
 
 
 class Movies(db.Model):
     __tablename__ = 'movies'
-    __searchable__ = ['name', 'description','cast']
-    sno = db.Column(db.Integer, primary_key=True)
+    __searchable__ = ['name', 'description', 'cast']
+    sno = db.Column(db.Integer, autoincrement=True,primary_key=True)
     name = db.Column(db.String(20), nullable=False)
     slug = db.Column(db.String(20), nullable=False)
     description = db.Column(db.String(200), nullable=False)
@@ -65,10 +66,11 @@ class Movies(db.Model):
     # mega_link = db.Column(db.String(20), nullable=False)
     youtube_link = db.Column(db.String(20), nullable=False)
     # gdrive_link = db.Column(db.String(20), nullable=False)
-    meta_description = db.Column(db.String(20), nullable=False)
-    meta_keywords = db.Column(db.String(20), nullable=False)
+    meta_description = db.Column(db.String(20), nullable=True)
+    meta_keywords = db.Column(db.String(20), nullable=True)
     date = db.Column(db.String(20), nullable=False)
 # slug =  db.Column(db.String(20), nullable=False)
+
 
 class Highlinks(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
@@ -78,6 +80,8 @@ class Highlinks(db.Model):
     mirror_link = db.Column(db.String(200), nullable=True)
     name = 'highlink'
     quality = "1080p"
+
+
 class Mediumlinks(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
     mega_link = db.Column(db.String(20), nullable=True)
@@ -86,6 +90,8 @@ class Mediumlinks(db.Model):
     mirror_link = db.Column(db.String(200), nullable=True)
     name = 'mediumlink'
     quality = '720p'
+
+
 class Lowlinks(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
     mega_link = db.Column(db.String(20), nullable=True)
@@ -93,7 +99,9 @@ class Lowlinks(db.Model):
     onedrive_link = db.Column(db.String(200), nullable=True)
     mirror_link = db.Column(db.String(200), nullable=True)
     name = 'lowlink'
-    quality='480p'
+    quality = '480p'
+
+
 @app.route("/")
 def home():
     # movies = Movies.query.all()
@@ -135,7 +143,7 @@ def home():
         comedy = pagination(comedy)
         first_row, second_row, third_row, fourth_row = [
             "Action", "Romance", "Horror", "Comedy"]
-    return render_template("index.html", latest=latest["movies"], comedy=comedy["movies"], horror=horror["movies"], action=action["movies"], romance=romance["movies"], first_row=first_row, second_row=second_row, third_row=third_row, fourth_row=fourth_row, next=latest["next"],priv=latest['priv'],display_next=latest["display_next"], display_priv=latest["display_priv"], justify_content=latest["justify_content"])
+    return render_template("index.html", latest=latest["movies"], comedy=comedy["movies"], horror=horror["movies"], action=action["movies"], romance=romance["movies"], first_row=first_row, second_row=second_row, third_row=third_row, fourth_row=fourth_row, next=latest["next"], priv=latest['priv'], display_next=latest["display_next"], display_priv=latest["display_priv"], justify_content=latest["justify_content"])
 
 
 @app.route("/movies/download/<string:slug>")
@@ -144,7 +152,7 @@ def movie_download(slug):
     highlink = Highlinks.query.filter_by(sno=movie.sno).first()
     mediumlink = Mediumlinks.query.filter_by(sno=movie.sno).first()
     lowlink = Lowlinks.query.filter_by(sno=movie.sno).first()
-    return render_template("download_movies.html", movie=movie, highlink=highlink, mediumlink=mediumlink,lowlink=lowlink)
+    return render_template("download_movies.html", movie=movie, highlink=highlink, mediumlink=mediumlink, lowlink=lowlink)
 
 
 """Vertically movies display"""
@@ -176,10 +184,15 @@ def movies_vertical(genre):
 
 @app.route("/dashboard", methods=['GET',  'POST'])
 def dashboard():
-    movies = Movies.query.order_by(Movies.date.desc()).all()
-    movies=pagination(movies)
+    query = request.args.get("search")
+    try:
+        movies = Movies.query.msearch(
+            query, fields=['name', 'description', 'cast']).order_by(Movies.date.desc()).all()
+    except:
+        movies = Movies.query.order_by(Movies.date.desc()).all()
+    movies = pagination(movies)
     if ('user' in session and session['user'] == params['username']):
-        return render_template('dashboard.html', name='Admin Panel', movies=movies["movies"], priv=movies["priv"], next=movies["next"], display_next=movies["display_next"], display_priv=movies["display_priv"], justify_content=movies["justify_content"])
+        return render_template('dashboard.html', name='Admin Panel', movies=movies["movies"], priv=movies["priv"], next=movies["next"], display_next=movies["display_next"], display_priv=movies["display_priv"], justify_content=movies["justify_content"], page=movies["page"])
     if request.method == 'POST':
         username = request.form.get('uname')
         password = request.form.get('pass')
@@ -199,23 +212,23 @@ def edit(sno):
         mediumlink = Mediumlinks.query.filter_by(sno=sno).first()
         if request.method == 'GET':
             if sno == '0':
-                return render_template("Add.html", movie=movie, sno=sno, img_name='s-1.jpg',highlink=highlink, lowlink=lowlink, mediumlink=mediumlink)
+                return render_template("Add.html", movie=movie, sno=sno, img_name='s-1.jpg', highlink=highlink, lowlink=lowlink, mediumlink=mediumlink)
             else:
                 return render_template("edit.html", movie=movie, sno=sno, img_name=movie.img_name, highlink=highlink, lowlink=lowlink, mediumlink=mediumlink)
         elif request.method == 'POST':
             name = request.form.get('name')
-            slug = request.form.get('slug').replace(' ','_').lower()
+            slug = request.form.get('slug').replace(' ', '_').lower()
             description = request.form.get('description')
             genre = request.form.get('genre').lower()
             director = request.form.get('director').lower()
             cast = request.form.get('cast').lower()
             lang = request.form.get('lang').lower()
-            
+
             film_industry = request.form.get('film_industry').lower()
             global image_name  # This global variable will go to /uploader
             image_name = request.form.get("img_name")
             youtube_link = request.form.get("youtube_link")
-            #Download Links
+            # Download Links
             mega_link_1080 = request.form.get('highlink_mega_link')
             gdrive_link_1080 = request.form.get('highlink_gdrive_link')
             onedrive_link_1080 = request.form.get('highlink_onedrive_link')
@@ -231,13 +244,22 @@ def edit(sno):
             # we could use f.filename instead of img_name As we are taking input from the user for the file name I didn't save with the filename uploading I am saving with the filename the user giving
             if sno == '0':
                 post = Movies(name=name, slug=slug,
-                              description=description, genre=genre,director=director,cast=cast,lang=lang, film_industry=film_industry, date=datetime.datetime.now(), img_name=image_name, youtube_link=youtube_link)
+                              description=description, genre=genre, director=director, cast=cast, lang=lang, film_industry=film_industry, date=datetime.datetime.now(), img_name=image_name, youtube_link=youtube_link)
+                try:
+                    f = request.files['files']
+                    f.save(os.path.join(params['path_upload'],
+                                secure_filename(image_name)))
+                except:
+                    pass      
                 db.session.add(post)
                 db.session.commit()
                 sno = Movies.query.order_by(Movies.date.desc()).first().sno
-                link_1080 = Highlinks(sno=sno,mega_link=mega_link_1080, gdrive_link=gdrive_link_1080, onedrive_link=onedrive_link_1080,mirror_link=mirror_link_1080)
-                link_720 = Mediumlinks(sno=sno,mega_link=mega_link_720, gdrive_link=gdrive_link_720, onedrive_link=onedrive_link_720,mirror_link=mirror_link_720)
-                link_480 = Lowlinks(sno=sno,mega_link=mega_link_480, gdrive_link=gdrive_link_480, onedrive_link=onedrive_link_480,mirror_link=mirror_link_480)
+                link_1080 = Highlinks(sno=sno, mega_link=mega_link_1080, gdrive_link=gdrive_link_1080,
+                                      onedrive_link=onedrive_link_1080, mirror_link=mirror_link_1080)
+                link_720 = Mediumlinks(sno=sno, mega_link=mega_link_720, gdrive_link=gdrive_link_720,
+                                       onedrive_link=onedrive_link_720, mirror_link=mirror_link_720)
+                link_480 = Lowlinks(sno=sno, mega_link=mega_link_480, gdrive_link=gdrive_link_480,
+                                    onedrive_link=onedrive_link_480, mirror_link=mirror_link_480)
                 db.session.add(link_1080)
                 db.session.add(link_720)
                 db.session.add(link_480)
@@ -279,6 +301,8 @@ def edit(sno):
 
 
 """SEO = Search Engine Optimization"""
+
+
 @app.route("/seo/<string:sno>", methods=["GET", "POST"])
 def seo_links(sno):
     movies = Movies.query.filter_by(sno=sno).first()
@@ -293,7 +317,7 @@ def seo_links(sno):
             meta_keywords = movies.meta_keywords
         return render_template("seo_edit.html", meta_description=meta_description, meta_keywords=meta_keywords, img_name=img_name, sno=sno)
     elif request.method == "POST":
-        #It's adding the seo after the row is made so It is using commit(), By default it will be null in the database
+        # It's adding the seo after the row is made so It is using commit(), By default it will be null in the database
         meta_description = request.form.get('meta_description')
         meta_keywords = request.form.get('meta_keywords')
         movies.meta_description = meta_description
@@ -342,7 +366,7 @@ def deleter(sno):
         image_name = post.img_name
         try:
             os.remove(os.path.join(params['path_upload'],
-                               secure_filename(image_name)))
+                                   secure_filename(image_name)))
         except:
             pass
         db.session.delete(post)
@@ -354,13 +378,19 @@ def deleter(sno):
 def login():
     return render_template("login.html")
 
-#Searcher 
+# Searcher
+
+
 @app.route('/search')
 def search():
     query = request.args.get('query')
-    movies = Movies.query.msearch(query,fields=['name', 'description','cast']).order_by(Movies.date.desc()).all()
-    return render_template('search.html', movies=movies)
-if __name__ == '__main__':  
+    movies = Movies.query.msearch(
+        query, fields=['name', 'description', 'cast']).order_by(Movies.date.desc()).all()
+    movies = pagination(movies)
+    return render_template('search.html', movies=movies["movies"], display_next=movies["display_next"], display_priv=movies["display_priv"], next=movies["next"], priv=movies["priv"], justify_content=movies["justify_content"], genre=query)
+
+
+if __name__ == '__main__':
     app.run(debug=True)
     """Still have to add if else in test.html have to add the meta description and title in page"""
 """Having some issue in uploading photo and the name is not saving to database either from uploader/sno"""

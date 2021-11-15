@@ -9,7 +9,7 @@
     <section id="main">
         <!--showcase----------------------->
         <!--heading------------->
-        <h1 class="showcase-heading">Showcase</h1>
+        <h1 class="showcase-heading">Latest Updates</h1>
 
         <ul id="autoWidth" class="cs-hidden">
 
@@ -20,7 +20,7 @@
                 <a href="/movies/download/{{latest.slug}}">
        <div class=" showcase-box">
                     {%set fname = 'assets/img/' + latest.img_name%}
-                    <img src="{{url_for('static',filename=fname)}}" />
+                    <img src="{{url_for('static',filename=fname)}}" alt="{{latest.name}}" />
                     </div>
                 </a>
             </li>
@@ -48,7 +48,6 @@
                         <!--text---------->
                         <div class="latest-b-text">
                             <strong>{{action.name}}</strong>
-                            <p>{{action.description[0:15]+"..."}}</p>
                         </div>
                     </a>
                 </div>
@@ -69,13 +68,12 @@
                     {%set fname = 'assets/img/' + romance.img_name %}
                     <a href="/movies/download/{{romance.slug}}">
                         <div class="latest-b-img">
-                            <img src="{{url_for('static',filename=fname)}}"" alt="{{romance.name}}">
+                            <img src="{{url_for('static',filename=fname)}}" alt="{{romance.name}}">
                         </div>
 
                         <!--text---------->
                         <div class="latest-b-text">
                             <strong>{{romance.name}}</strong>
-                            <p>{{romance.description[0:15]+"..."}}</p>
                         </div>
                     </a>
                 </div>
@@ -102,7 +100,6 @@
                         <!--text---------->
                         <div class="latest-b-text">
                             <strong>{{horror.name}}</strong>
-                            <p>{{horror.description[0:15]+"..."}}</p>
                         </div>
                     </a>
                 </div>
@@ -129,7 +126,6 @@
                         <!--text---------->
                         <div class="latest-b-text">
                             <strong>{{comedy.name}}</strong>
-                            <p>{{ comedy.description[0:15]+"..."}}</p>
                         </div>
                     </a>
                 </div>
@@ -140,8 +136,8 @@
     </section>
         <!--btns--------------->
         <div class="bottom d-flex {{justify_content}} mb-4">
-            <a style="{{display_priv}}" class="previous-btn btn btn-myweb text-uppercase" href="?page={{priv}}">&larr; Previous</a>
-            <a style="{{display_next}}"class="next-btn btn-myweb text-uppercase" href="?page={{next}}">Next →</a>
+            <button style="{{display_priv}}" class="previous-btn btn btn-myweb text-uppercase" onclick="pagination({{priv}})">&larr; Previous</button>
+            <button style="{{display_next}}" class="next-btn btn-myweb text-uppercase" onclick="pagination({{next}})">Next →</button>
         </div>
     <script>
         $(document).ready(function () {

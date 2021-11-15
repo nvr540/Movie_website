@@ -1,16 +1,17 @@
 {% extends 'layout.html' %}
 {% block title %}
-    Search Result for: {{query}}
+Search Result For: {{genre}}
 {% endblock title %}
 {% block body %}
 <!--movies---------------------------->
 <div class="movies-heading">
-    <h2 style="text-align: center; background-color: rgba(130, 14, 63);color: #fff;border-radius: 20px;">Search Result for: {{query}}</h2>
+    <h2 style="text-align: center; background-color: rgba(130, 14, 63);color: #fff;border-radius: 20px;">Search Result of: <i>{{genre}}
+    </i></h2>
 </div>
 <section id="movies-list">
     <!--box-1------------------------>
     {%for movie in movies%}
-    <div class="movies-box">
+    <div class="movies-box" onclick="loadUrl('/movies/download/{{movie.slug}}')">
         <!--img------------>
         {%set fname = 'assets/img/' + movie.img_name %}
 
@@ -19,17 +20,23 @@
             <img src="{{url_for('static',filename=fname)}}">
         </div>
         <!--text--------->
-        <a href="/movies/download/{{movie.slug}}">
+        <!-- <a href="/movies/download/{{movie.slug}}"> -->
             <h3>{{movie.name}}</h3>
-        </a>
+        <!-- </a> -->
     </div>
     {%endfor%}
 
 
 </section>
 <div class="bottom d-flex {{justify_content}} mb-4">
-    <a style="{{display_priv}}" class="previous-btn btn btn-myweb text-uppercase" href="?page={{priv}}">&larr; Previous</a>
-    <a style="{{display_next}}"class="next-btn btn-myweb text-uppercase" href="?page={{next}}">Next →</a>
+    <button style="{{display_priv}}" class="previous-btn btn btn-myweb text-uppercase" onclick="pagination({{priv}})">&larr; Previous</button>
+    <button style="{{display_next}}" class="next-btn btn-myweb text-uppercase" onclick="pagination({{next}})">Next →</button>
 </div>
-
+<script>
+    function loadUrl(url){
+        // window.location.href = url;
+        window.open(
+            url,'_blank') // <- This is what makes it open in a new window.
+        }
+</script>
 {% endblock %}
