@@ -29,6 +29,7 @@
                     <div class="my-5">
                         <form id="contactForm" action="/seo/{{sno}}" method="POST"
                             data-sb-form-api-token="API_TOKEN">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                             <div class="form-floating">
                                 <textarea class="form-control" id="message" name="meta_keywords" placeholder="Content Here"
                                     required style="height: 12rem"

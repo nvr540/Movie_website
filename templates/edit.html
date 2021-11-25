@@ -1,9 +1,9 @@
 {% extends 'layout.html' %}
 {% block title %}
-    Edit Info
+Edit Info
 {% endblock title %}
 {% block body %}
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
 
 <body>
@@ -11,18 +11,17 @@
 
     <!-- Page Header-->
     {%set fname = 'assets/img/' + img_name %}
-    <header class="masthead"
-        style="background-image: url('{{url_for('static', filename=fname)}}')"></header>
-        <div class="container position-relative px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-md-10 col-lg-8 col-xl-7">
-                    <div class="page-heading">
-                        <h1 id="dashboard_heading">Adding OR Editing a Blog</h1>
-                        <span class="subheading">Edit Or Add your movie</span>
-                    </div>
+    <header class="masthead" style="background-image: url('{{url_for('static', filename=fname)}}')"></header>
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="page-heading">
+                    <h1 id="dashboard_heading">Adding OR Editing a Blog</h1>
+                    <span class="subheading">Edit Or Add your movie</span>
                 </div>
             </div>
         </div>
+    </div>
     </header>
     <!-- Main Content-->
     <main class="mb-4">
@@ -33,7 +32,7 @@
                         <form id="contactForm" action="/dashboard/{{sno}}" method="POST"
                             data-sb-form-api-token="API_TOKEN">
 
-
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
                             <div class="form-floating">
                                 <input class="form-control" id="title" type="text" name="name" placeholder="Name"
                                     value="{{movie.name}}" required />
@@ -65,8 +64,8 @@
                                 <label for="name">Language</label>
                             </div>
                             <div class="form-floating">
-                                <input class="form-control" id="slug" type="text" name="film_industry" placeholder="Slug"
-                                    value="{{movie.film_industry}}" required />
+                                <input class="form-control" id="slug" type="text" name="film_industry"
+                                    placeholder="Slug" value="{{movie.film_industry}}" required />
                                 <label for="name">Film Industry</label>
                             </div>
 
@@ -81,38 +80,41 @@
                                 <label for="name">Youtube Trailer Link</label>
                             </div>
                             <div class="form-floating">
-                                <textarea class="form-control" id="message" name="description" placeholder="Content Here"
-                                    required style="height: 12rem"
+                                <textarea class="form-control" id="message" name="description"
+                                    placeholder="Content Here" required style="height: 12rem"
                                     data-sb-validations="required">{{movie.description}}</textarea>
                                 <label for="message">Description</label>
                                 <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.
                                 </div>
                             </div>
                             <!-- Download Links -->
-                                 {% for links in [highlink, mediumlink,lowlink] %}
+                            {% for links in [highlink, mediumlink,lowlink] %}
                             <h2 class='subheading'>{{links.quality}}</h2>
                             <div class="form-floating">
-                                <input class="form-control" id="slug" type="text" name="{{links.name+ '_mega_link' }}" placeholder="Slug"
-                                    value="{{links.mega_link}}" />
+                                <input class="form-control" id="slug" type="text" name="{{links.name+ '_mega_link' }}"
+                                    placeholder="Slug" value="{{links.mega_link}}" />
                                 <label for="name">Mega</label>
                             </div>
                             <div class="form-floating">
-                                <input class="form-control" id="slug" type="text" name="{{links.name + '_gdrive_link' }}" placeholder="Slug"
-                                    value="{{links.gdrive_link }}"/>
+                                <input class="form-control" id="slug" type="text"
+                                    name="{{links.name + '_gdrive_link' }}" placeholder="Slug"
+                                    value="{{links.gdrive_link }}" />
                                 <label for="name">Google Drive Link</label>
                             </div>
                             <div class="form-floating">
-                                <input class="form-control" id="slug" type="text" name="{{links.name + '_onedrive_link' }}" placeholder="Slug"
+                                <input class="form-control" id="slug" type="text"
+                                    name="{{links.name + '_onedrive_link' }}" placeholder="Slug"
                                     value="{{links.onedrive_link}}" />
                                 <label for="name">One Drive</label>
                             </div>
                             <div class="form-floating">
-                                <input class="form-control" id="slug" type="text" name="{{ links.name + 'mirror_link' }}" placeholder="Slug"
+                                <input class="form-control" id="slug" type="text"
+                                    name="{{ links.name + 'mirror_link' }}" placeholder="Slug"
                                     value="{{links.mirror_link }}" />
                                 <label for="name">Mirror</label>
-                            </div> 
-                       
-                {% endfor %}
+                            </div>
+
+                            {% endfor %}
                             <!-- Ending Download Links -->
                             <br />
                             <!-- Submit success message-->

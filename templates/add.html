@@ -29,6 +29,7 @@
                     <div class="my-5">
                         <form action="/uploader" method="POST" enctype="multipart/form-data" id='fileUpload'>
                             <div class="file-field">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                                 <input type="file" id="myFile" name="files" required>
                                 <!-- <label for="myFile">Image Upload</label> -->
                                 <!-- <input type="button" style="display: none;" id="click"> -->
@@ -37,7 +38,7 @@
                         <form id="contactForm" action="/dashboard/{{sno}}" method="POST"
                             data-sb-form-api-token="API_TOKEN">
 
-
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                             <div class="form-floating">
                                 <input class="form-control" id="title" type="text" name="name" placeholder="Name"
                                    required />

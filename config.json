@@ -3,7 +3,7 @@
         "data_base_uri":"sqlite:///test.db",
         "username": "admin",
         "password": "password",
-        "path_upload":"D:\\Documents\\Movie Website\\static\\assets\\img",
+        "path_upload":"D:\\Documents\\Movie Website\\static\\assets\\img\\",
         "no_of_movies": 10
      }
  }
