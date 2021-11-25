@@ -1,14 +1,15 @@
-from flask import Flask, render_template, redirect, url_for, request, session
+from flask import Flask, render_template, redirect, request, session
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
 import json
-import datetime
+from flask_wtf.csrf import CSRFProtect
 import time
 import os
 import math
 from flask_msearch import Search
 app = Flask(__name__)
 app.secret_key = 'super secret key'
+csrf = CSRFProtect(app)
 params = json.load(open('config.json'))['params']
 # print(params)
 app.config['SQLALCHEMY_DATABASE_URI'] = params['data_base_uri']
