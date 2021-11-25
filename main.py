@@ -244,7 +244,7 @@ def edit(sno):
             # we could use f.filename instead of img_name As we are taking input from the user for the file name I didn't save with the filename uploading I am saving with the filename the user giving
             if sno == '0':
                 post = Movies(name=name, slug=slug,
-                              description=description, genre=genre, director=director, cast=cast, lang=lang, film_industry=film_industry, date=datetime.datetime.now(), img_name=image_name, youtube_link=youtube_link)
+                              description=description, genre=genre, director=director, cast=cast, lang=lang, film_industry=film_industry, img_name=image_name, youtube_link=youtube_link)
                 try:
                     f = request.files['files']
                     f.save(os.path.join(params['path_upload'],
